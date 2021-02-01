@@ -1,0 +1,48 @@
+server:
+  # 项目端口号
+  port: 2998
+
+spring:
+  datasource:
+    # MySQL 连接配置：驱动、URL、用户名、密码
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://175.24.147.229:3306/testMyBatisPlus?serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+#  data:
+#    mongodb:
+#      host: localhost # mongodb的连接地址
+#      port: 27018 # mongodb的连接端口号
+#      database: tree # mongodb的连接的数据库
+
+# mybatis-plus 配置
+mybatis-plus:
+  # 指定 mapper.xml 路径
+  mapper-locations: classpath:/mapper/**/*.xml
+  configuration:
+    # 打印 SQL 日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 只对非嵌套的 resultMap 进行自动映射
+    auto-mapping-behavior: partial
+    # 开启自动驼峰命名规则映射
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      # 全局默认主键类型设置为自增
+      id-type: auto
+
+
+#  mapper-locations: classpath*:mapper/*Mapper.xml
+#  type-aliases-package: com.suda.tree.entity.mysql
+#secure:
+#  ignored:
+#    urls:
+#      - /
+#      - /swagger-ui/
+#      - /*.html
+#      - /favicon.ico
+#      - /**/*.html
+#      - /**/*.css
+#      - /**/*.js
+#      - /swagger-resources/**
+#      - /v2/api-docs/**
