@@ -1,30 +1,41 @@
 package com.suda.tree.entity.mysql;
 
-import cn.hutool.core.date.DateTime;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 
-@Data
-public class User {
+import javax.persistence.Id;
 
-    @TableId(type = IdType.AUTO)
-    @TableField("user_id")
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Data
+@Entity
+@Table(name = "user")
+public class User implements Serializable {
+
+    @Id
+    @Column(name = "user_id")
     private Long userId;
 
-    @TableField("username")
+    @Column(name = "username")
     private String username;
 
-    @TableField("password")
+    @Column(name = "password")
     private String password;
 
-    @TableField("email")
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "email")
     private String email;
 
-    @TableField("creat_time")
-    private DateTime creatTime;
+    @Column(name = "creat_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date creatTime;
 
-    @TableField("update_time")
-    private DateTime updateTime;
+    @Column(name = "update_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private Date updateTime;
+
 }

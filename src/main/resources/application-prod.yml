@@ -1,6 +1,6 @@
 server:
   # 项目端口号
-  port: 2399
+  port: 6070
 
 spring:
   datasource:
@@ -18,41 +18,7 @@ spring:
       username: tree
       password: devtree
   jpa:
-    show-sql: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate:
-      ddl-auto: update
-  mail:
-    host: smtp.163.com
-    username: isgaoxy@163.com
-    password: yu1119..
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-  servlet:
-    multipart:
-      # 开启文件上传
-      enabled: true
-      # 限制文件上传大小
-      max-file-size: 10MB
-
-minio:
-  endpoint: 175.24.147.229
-  port: 9090
-  access-key: minioadmin
-  secret-key: minioadmin
-  bucket: tree
-  gateway: https://175.24.147.229:9000/tree
-  secure: false
-
-logging:
-  file:
-    path: "./logs/"
-
 
 
 secure:

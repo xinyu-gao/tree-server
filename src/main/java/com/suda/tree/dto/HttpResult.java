@@ -22,49 +22,26 @@ public class HttpResult<T> {
      */
     private T data;
 
-    /**
-     * 成功返回结果
-     *
-     * @param data 获取的数据
-     */
+    public static HttpResult<Boolean> success() {
+        return new HttpResult<>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), true);
+    }
+
     public static <T> HttpResult<T> success(T data) {
         return new HttpResult<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
     }
 
-    /**
-     * 成功返回结果
-     *
-     * @param data    获取的数据
-     * @param message 提示信息
-     */
     public static <T> HttpResult<T> success(T data, String message) {
         return new HttpResult<T>(ResultCode.SUCCESS.getCode(), message, data);
     }
 
-    /**
-     * 失败返回结果
-     *
-     * @param errorCode 错误码
-     */
     public static <T> HttpResult<T> failed(ResultCode errorCode) {
         return new HttpResult<T>(errorCode.getCode(), errorCode.getMessage(), null);
     }
 
-    /**
-     * 失败返回结果
-     *
-     * @param errorCode 错误码
-     * @param message   错误信息
-     */
     public static <T> HttpResult<T> failed(ResultCode errorCode, String message) {
         return new HttpResult<>(errorCode.getCode(), message, null);
     }
 
-    /**
-     * 失败返回结果
-     *
-     * @param message 提示信息
-     */
     public static <T> HttpResult<T> failed(String message) {
         return new HttpResult<>(ResultCode.FAILED.getCode(), message, null);
     }
@@ -85,8 +62,6 @@ public class HttpResult<T> {
 
     /**
      * 参数验证失败返回结果
-     *
-     * @param message 提示信息
      */
     public static <T> HttpResult<T> validateFailed(String message) {
         return new HttpResult<>(ResultCode.VALIDATE_FAILED.getCode(), message, null);
