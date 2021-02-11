@@ -5,6 +5,7 @@ import cn.hutool.core.util.URLUtil;
 import cn.hutool.json.JSONUtil;
 import com.suda.tree.dto.WebLog;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -35,8 +36,8 @@ import java.util.Map;
 @Aspect
 @Component
 @Order(1)
+@Slf4j
 public class WebLogAspect {
-    private static final Logger LOGGER = LoggerFactory.getLogger(WebLogAspect.class);
 
     @Pointcut("execution(public * com.suda.tree.controller.*.*(..))")
     public void webLog() {
@@ -69,15 +70,14 @@ public class WebLogAspect {
         long endTime = System.currentTimeMillis();
         String urlStr = request.getRequestURL().toString();
         webLog.setBasePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()));
-        webLog.setIp(request.getRemoteUser());
+        webLog.setUsername(request.getRemoteUser());
+        webLog.setIp(request.getRemoteHost());
         webLog.setMethod(request.getMethod());
         webLog.setParameter(getParameter(method, joinPoint.getArgs()));
         webLog.setResult(result);
         webLog.setSpendTime((int) (endTime - startTime));
-        webLog.setStartTime(startTime);
         webLog.setUri(request.getRequestURI());
-        webLog.setUrl(request.getRequestURL().toString());
-        LOGGER.info("{}", JSONUtil.parse(webLog));
+        log.info("{}", JSONUtil.parse(webLog));
         return result;
     }
 

@@ -6,6 +6,7 @@ import com.suda.tree.service.StatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,5 +24,9 @@ public class StatisticServiceImpl implements StatisticService {
     @Override
     public TreeGradeStatistic saveTreeGrade(TreeGradeStatistic treeGradeStatistic) {
         return treeGradeRepository.save(treeGradeStatistic);
+    }
+    @Override
+    public List<TreeGradeStatistic> saveAll(List<TreeGradeStatistic> treeGradeStatisticList){
+        return treeGradeRepository.saveAll(treeGradeStatisticList);
     }
 }

@@ -18,10 +18,6 @@ public class WebLog {
      */
     private String username;
 
-    /**
-     * 操作时间
-     */
-    private Long startTime;
 
     /**
      * 消耗时间
@@ -38,10 +34,6 @@ public class WebLog {
      */
     private String uri;
 
-    /**
-     * URL
-     */
-    private String url;
 
     /**
      * 请求类型

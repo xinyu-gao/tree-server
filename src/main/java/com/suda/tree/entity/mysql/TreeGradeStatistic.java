@@ -41,4 +41,16 @@ public class TreeGradeStatistic {
      */
     @Field(name = "famous")
     private int famous;
+
+    public TreeGradeStatistic(String province, int level1, int level2, int level3, int famous) {
+        this.province = province;
+        this.level1 = level1;
+        this.level2 = level2;
+        this.level3 = level3;
+        this.famous = famous;
+    }
+
+    public TreeGradeStatistic() {
+
+    }
 }

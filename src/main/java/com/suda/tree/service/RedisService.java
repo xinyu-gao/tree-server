@@ -146,6 +146,11 @@ public interface RedisService {
     List<Object> lRange(String key, long start, long end);
 
     /**
+     * 获取List结构中的所有属性
+     */
+    List<Object> lGetAll(String key);
+
+    /**
      * 获取List结构的长度
      */
     Long lSize(String key);

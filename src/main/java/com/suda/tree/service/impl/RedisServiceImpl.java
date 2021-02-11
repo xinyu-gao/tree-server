@@ -157,6 +157,10 @@ public class RedisServiceImpl implements RedisService {
     public List<Object> lRange(String key, long start, long end) {
         return redisTemplate.opsForList().range(key, start, end);
     }
+    @Override
+    public List<Object> lGetAll(String key){
+        return redisTemplate.opsForList().range(key, 0, -1);
+    }
 
     @Override
     public Long lSize(String key) {

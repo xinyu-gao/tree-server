@@ -8,7 +8,7 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://175.24.147.229:3306/tree?serverTimezone=GMT%2B8
     username: root
-    password: 123456
+    password: 123456tree
   data:
     # MongoDB 连接配置
     mongodb:
@@ -18,8 +18,11 @@ spring:
       username: tree
       password: devtree
   jpa:
+    # 是否打印sql语句
     show-sql: true
+    # 数据库引擎InnoDB（mysql8也是这个）
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    # 自动更新表结构
     hibernate:
       ddl-auto: update
   mail:
@@ -39,24 +42,36 @@ spring:
       enabled: true
       # 限制文件上传大小
       max-file-size: 10MB
+  redis:
+    # Redis服务器地址
+    host: 175.24.147.229
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password:
+    # 连接超时时间
+    timeout: 1000ms
 
 minio:
+  # minio 服务器地址
   endpoint: 175.24.147.229
+  # minio 服务器端口号
   port: 9090
+  # minio 账号名
   access-key: minioadmin
+  # minio 密码
   secret-key: minioadmin
+  # 存储桶的名字
   bucket: tree
-  gateway: https://175.24.147.229:9000/tree
   secure: false
-
-logging:
-  file:
-    path: "./logs/"
 
 
 
 secure:
   ignored:
+    # 安全框架忽略的静态网址
     urls:
       - /
       - /swagger-ui/
@@ -67,3 +82,21 @@ secure:
       - /**/*.js
       - /swagger-resources/**
       - /v2/api-docs/**
+
+jwt:
+  # http 请求头 key 值
+  tokenHeader: Authorization
+  # token 的开头标识
+  tokenHead: Bearer
+  # 密钥
+  secret: tree
+  # 有效期(s)
+  expiration: 5184000
+  # redis 中 token 黑名单的 key 值
+  blacklist: blacklist
+
+
+log:
+  host: 175.24.147.229
+  level:
+    root: INFO

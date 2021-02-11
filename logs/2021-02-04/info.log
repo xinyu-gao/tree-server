@@ -1,2 +1,0 @@
-2021-02-04 19:52:07 [restartedMain] WARN  o.s.d.m.core.mapping.BasicMongoPersistentProperty - Customizing field name for id property 'com.suda.tree.entity.mongo.TreePicture.treeId' is not allowed! Custom name ('tree_id') will not be considered!
-2021-02-04 19:52:08 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning

@@ -7,9 +7,8 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@Component
 @ConfigurationProperties(prefix = "secure.ignored")
+@Data
 public class IgnoreUrlsConfig {
 
     private List<String> urls = new ArrayList<>();

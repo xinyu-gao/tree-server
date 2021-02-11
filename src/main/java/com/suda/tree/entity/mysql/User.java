@@ -4,19 +4,20 @@ import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Id;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "user")
 public class User implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private Long userId;
 
@@ -37,5 +38,11 @@ public class User implements Serializable {
 
     @Column(name = "update_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateTime;
+
+    /**
+     * 可用状态, 默认为 1（可用），置 0 不可用
+     */
+    @Column(name = "status", columnDefinition = "int default 1")
+    private String status;
 
 }

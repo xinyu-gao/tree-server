@@ -2,7 +2,9 @@ package com.suda.tree.service;
 
 import com.suda.tree.dto.PageResult;
 import com.suda.tree.entity.mysql.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface UserService {
@@ -15,9 +17,15 @@ public interface UserService {
 
     List<String> findRolesByUsername(String username);
 
-    void saveUser(User user);
+    boolean saveUser(User user);
 
     boolean updatePassword(User user);
 
     boolean updateUserRoles(User user);
+
+    String login(String username, String password);
+
+    String logout(HttpServletRequest request) throws Exception;
+
+    UserDetails loadUserByUsername(String username);
 }

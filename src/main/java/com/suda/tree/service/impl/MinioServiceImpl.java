@@ -1,16 +1,8 @@
 package com.suda.tree.service.impl;
 
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.*;
-
-import com.suda.tree.dto.HttpResult;
 import com.suda.tree.service.MinioService;
 import io.minio.*;
-import io.minio.errors.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,9 +24,6 @@ public class MinioServiceImpl implements MinioService {
     private String bucketName;
 
 
-    @Value("${minio.gateway}")
-    private String gateway;
-
     @Autowired
     private MinioClient minioClient;
 
@@ -55,7 +44,6 @@ public class MinioServiceImpl implements MinioService {
                         .stream(multipartFile.getInputStream(), multipartFile.getSize(), -1)
                         .contentType(multipartFile.getContentType())
                         .build());
-        log.info("文件上传成功!");
         return getFileURL(id, objectName);
     }
 
@@ -118,13 +106,6 @@ public class MinioServiceImpl implements MinioService {
         minioClient.makeBucket(
                 MakeBucketArgs.builder()
                         .bucket(bucketName).build());
-    }
-
-    /**
-     * 获取访问网关
-     */
-    private String gateway(String path) {
-        return gateway.endsWith("/") ? gateway + path : gateway + "/" + path;
     }
 
     /**
