@@ -21,12 +21,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                //为当前包下controller生成API文档
                 .apis(RequestHandlerSelectors.basePackage("com.node.detection.controller"))
-                //为有@Api注解的Controller生成API文档
-//                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
-                //为有@ApiOperation注解的方法生成API文档
-//                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build();
     }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalException {
 
     /**
      * 统一异常处理，两个注解： @ControllerAdvice、@ExceptionHandler

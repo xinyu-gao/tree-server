@@ -2,10 +2,7 @@ package com.suda.tree.entity.mysql;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 import java.io.Serializable;
@@ -239,7 +236,7 @@ public class TreeInfo implements Serializable {
     private String protectionStatus;
 
     /**
-     * 养护复壮现状：复壮沟、渗井、透气管、幼树靠接、土壤改良、叶面施肥、其他
+     * 保护现状：复壮沟、渗井、透气管、幼树靠接、土壤改良、叶面施肥、其他
      */
     @Column(name = "conserve_status")
     private String conserveStatus;

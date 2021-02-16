@@ -25,7 +25,11 @@ public interface UserService {
 
     String login(String username, String password);
 
+    String loginForEmail(String Email, String validateCode);
+
     String logout(HttpServletRequest request) throws Exception;
 
     UserDetails loadUserByUsername(String username);
+
+    String findUsernameByEmail(String Email);
 }

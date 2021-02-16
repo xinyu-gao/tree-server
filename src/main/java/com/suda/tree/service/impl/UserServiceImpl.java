@@ -7,6 +7,7 @@ import com.suda.tree.entity.mysql.User;
 import com.suda.tree.exception.CacheException;
 import com.suda.tree.service.RedisService;
 import com.suda.tree.service.UserService;
+import com.suda.tree.service.ValidateCodeService;
 import com.suda.tree.util.JwtTokenUtil;
 import com.suda.tree.util.PageUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +16,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -44,6 +44,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private ValidateCodeService validateCodeService;
 
     @Value("${jwt.tokenHead}")
     private String tokenHead;
@@ -98,19 +101,29 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String login(String username, String password) {
-        String token = null;
-        try {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
-                throw new BadCredentialsException("密码不正确");
-            }
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            token = jwtTokenUtil.generateToken(userDetails);
-        } catch (AuthenticationException e) {
-            log.warn("登录异常:{}", e.getMessage());
+        if (findByUsername(username) == null) {
+            throw new BadCredentialsException("该用户名未注册");
         }
-        return token;
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+            throw new BadCredentialsException("密码不正确");
+        }
+        UsernamePasswordAuthenticationToken auth =
+                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(auth);
+        return jwtTokenUtil.generateToken(userDetails);
+    }
+
+    @Override
+    public String loginForEmail(String Email, String validateCode) {
+        if (!validateCodeService.validate(Email, validateCode)) throw new BadCredentialsException("验证码不正确");
+        String username = findUsernameByEmail(Email);
+        if (username == null) throw new BadCredentialsException("该邮箱地址未注册");
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        UsernamePasswordAuthenticationToken auth =
+                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(auth);
+        return jwtTokenUtil.generateToken(userDetails);
     }
 
     @Override
@@ -121,11 +134,11 @@ public class UserServiceImpl implements UserService {
             String authToken = authHeader.substring(this.tokenHead.length());
             // jwt 黑名单
             boolean isInBlackList = redisService.lGetAll(blackListKeyForJWT).contains(authToken);
-            if(!isInBlackList) {
+            if (!isInBlackList) {
                 redisService.lPush(blackListKeyForJWT, authToken, 604800);
             }
             return "登出成功";
-        }else {
+        } else {
             throw new Exception("token 格式不正确");
         }
     }
@@ -156,7 +169,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @CacheException
-    private List<String> findRoles(String username){
+    private List<String> findRoles(String username) {
         // 先从缓存中获取数据
         List<String> roles = (List<String>) redisService.get(username + "_roles");
         if (roles == null) {
@@ -167,4 +180,10 @@ public class UserServiceImpl implements UserService {
         }
         return roles;
     }
+
+    @Override
+    public String findUsernameByEmail(String Email) {
+        return userRepository.findUsernameByEmail(Email);
+    }
+
 }
