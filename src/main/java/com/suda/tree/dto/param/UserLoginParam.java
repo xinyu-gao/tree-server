@@ -1,4 +1,4 @@
-package com.suda.tree.dto;
+package com.suda.tree.dto.param;
 
 import lombok.Data;
 

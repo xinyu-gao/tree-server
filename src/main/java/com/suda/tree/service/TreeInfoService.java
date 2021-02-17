@@ -1,6 +1,7 @@
 package com.suda.tree.service;
 
-import com.suda.tree.dto.PageResult;
+import com.suda.tree.dto.result.PageResult;
+import com.suda.tree.entity.mysql.CityTreeCount;
 import com.suda.tree.entity.mysql.TreeGradeStatistic;
 import com.suda.tree.entity.mysql.TreeInfo;
 
@@ -22,7 +23,6 @@ public interface TreeInfoService {
 
     /**
      * 计算树木等级分类
-     * @return
      */
     List<TreeGradeStatistic> calculateGradeStatistic();
 
@@ -31,4 +31,6 @@ public interface TreeInfoService {
     List<TreeInfo> getTreeList(String city);
 
     List<TreeInfo> getTreeListAll();
+
+    List<CityTreeCount> genProvinceAndCityTreeCount();
 }

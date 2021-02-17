@@ -1,6 +1,6 @@
 package com.suda.tree.service;
 
-import com.suda.tree.dto.PageResult;
+import com.suda.tree.dto.result.PageResult;
 import com.suda.tree.entity.mysql.User;
 import org.springframework.security.core.userdetails.UserDetails;
 

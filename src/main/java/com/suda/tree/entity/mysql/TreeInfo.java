@@ -69,7 +69,7 @@ public class TreeInfo implements Serializable {
     /**
      * 位置-市
      */
-    @Column(name = "locatio_city")
+    @Column(name = "location_city")
     private String locationCity;
 
     /**

@@ -1,6 +1,7 @@
-package com.suda.tree.dto;
+package com.suda.tree.dto.result;
 
 
+import com.suda.tree.dto.ResultCode;
 import lombok.Data;
 
 /**

@@ -1,6 +1,6 @@
 package com.suda.tree.controller;
 
-import com.suda.tree.dto.HttpResult;
+import com.suda.tree.dto.result.HttpResult;
 import com.suda.tree.service.ExistedProvinceAndCityService;
 import com.suda.tree.service.StatisticService;
 import org.springframework.beans.factory.annotation.Autowired;

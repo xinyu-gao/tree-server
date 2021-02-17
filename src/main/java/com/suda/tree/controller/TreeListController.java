@@ -1,6 +1,6 @@
 package com.suda.tree.controller;
 
-import com.suda.tree.dto.HttpResult;
+import com.suda.tree.dto.result.HttpResult;
 import com.suda.tree.service.TreeInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

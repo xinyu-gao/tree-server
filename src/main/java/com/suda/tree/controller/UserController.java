@@ -1,11 +1,9 @@
 package com.suda.tree.controller;
 
-import com.suda.tree.dto.HttpResult;
-import com.suda.tree.dto.UserLoginForEmailParam;
-import com.suda.tree.dto.UserLoginParam;
+import com.suda.tree.dto.result.HttpResult;
+import com.suda.tree.dto.param.UserLoginForEmailParam;
+import com.suda.tree.dto.param.UserLoginParam;
 import com.suda.tree.entity.mysql.User;
-import com.suda.tree.service.EmailService;
-import com.suda.tree.service.RedisService;
 import com.suda.tree.service.UserService;
 import com.suda.tree.service.ValidateCodeService;
 import io.swagger.annotations.ApiOperation;

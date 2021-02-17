@@ -101,5 +101,4 @@ public class TreeSpeciesStatistic implements Serializable {
     private int specieOthers;
 
 
-
 }

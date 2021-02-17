@@ -1,6 +1,6 @@
 package com.suda.tree.util;
 
-import com.suda.tree.dto.PageResult;
+import com.suda.tree.dto.result.PageResult;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

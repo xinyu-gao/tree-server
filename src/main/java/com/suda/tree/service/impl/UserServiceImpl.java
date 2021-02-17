@@ -1,7 +1,7 @@
 package com.suda.tree.service.impl;
 
 import com.suda.tree.dao.UserRepository;
-import com.suda.tree.dto.PageResult;
+import com.suda.tree.dto.result.PageResult;
 import com.suda.tree.entity.AdminUserDetails;
 import com.suda.tree.entity.mysql.User;
 import com.suda.tree.exception.CacheException;

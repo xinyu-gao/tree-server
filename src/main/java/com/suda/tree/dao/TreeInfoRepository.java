@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Controller
 public interface TreeInfoRepository extends JpaRepository<TreeInfo, String> {
 
     TreeInfo save(TreeInfo tree);
@@ -31,4 +30,7 @@ public interface TreeInfoRepository extends JpaRepository<TreeInfo, String> {
     List<Object[]> getExistedProvinceAndCityStatistic();
 
     List<TreeInfo> findTreeInfoByLocationCity(String city);
+
+    @Query(nativeQuery = true, value ="SELECT location_province, location_city, count(tree_id) FROM `tree_info` group by location_province, location_city")
+    List<Object[]> getProvinceAndCityTreeCount();
 }

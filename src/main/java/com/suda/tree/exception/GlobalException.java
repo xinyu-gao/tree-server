@@ -1,6 +1,6 @@
 package com.suda.tree.exception;
 
-import com.suda.tree.dto.HttpResult;
+import com.suda.tree.dto.result.HttpResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

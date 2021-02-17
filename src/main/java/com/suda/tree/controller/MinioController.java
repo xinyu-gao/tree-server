@@ -1,7 +1,6 @@
 package com.suda.tree.controller;
 
-import com.suda.tree.dto.HttpResult;
-import com.suda.tree.service.MinioService;
+import com.suda.tree.dto.result.HttpResult;
 import com.suda.tree.service.TreePicService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
