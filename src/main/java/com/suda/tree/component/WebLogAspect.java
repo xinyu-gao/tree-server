@@ -68,8 +68,6 @@ public class WebLogAspect {
             webLog.setDescription(apiOperation.value());
         }
         long endTime = System.currentTimeMillis();
-        String urlStr = request.getRequestURL().toString();
-        webLog.setBasePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()));
         webLog.setUsername(request.getRemoteUser());
         webLog.setIp(request.getRemoteHost());
         webLog.setMethod(request.getMethod());
@@ -98,7 +96,7 @@ public class WebLogAspect {
             if (requestParam != null) {
                 Map<String, Object> map = new HashMap<>();
                 String key = parameters[i].getName();
-                if (!StringUtils.isEmpty(requestParam.value())) {
+                if (!StrUtil.isEmpty(requestParam.value())) {
                     key = requestParam.value();
                 }
                 map.put(key, args[i]);

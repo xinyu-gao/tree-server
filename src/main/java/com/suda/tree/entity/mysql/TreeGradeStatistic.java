@@ -3,6 +3,7 @@ package com.suda.tree.entity.mysql;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -15,31 +16,31 @@ public class TreeGradeStatistic {
      * 省（自治区、直辖市）
      */
     @Id
-    @Field(name = "province")
+    @Column(name = "province")
     private String province;
 
     /**
      * 国家一级古树
      */
-    @Field(name = "level1")
+    @Column(name = "level1")
     private int level1;
 
     /**
      * 国家二级古树
      */
-    @Field(name = "level2")
+    @Column(name = "level2")
     private int level2;
 
     /**
      * 国家三级古树
      */
-    @Field(name = "level3")
+    @Column(name = "level3")
     private int level3;
 
     /**
      * 名木
      */
-    @Field(name = "famous")
+    @Column(name = "famous")
     private int famous;
 
     public TreeGradeStatistic(String province, int level1, int level2, int level3, int famous) {

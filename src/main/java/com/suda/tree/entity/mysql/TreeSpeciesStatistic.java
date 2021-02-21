@@ -42,63 +42,63 @@ public class TreeSpeciesStatistic implements Serializable {
     /**
      * 树种1
      */
-    @Column(name = "specie1_name")
+    @Column(name = "speciel1_name")
     private String specie1Name;
 
     /**
      * 树种2
      */
-    @Column(name = "specie2_name")
+    @Column(name = "speciel2_name")
     private String specie2Name;
 
     /**
      * 树种3
      */
-    @Column(name = "specie3_name")
+    @Column(name = "speciel3_name")
     private String specie3Name;
 
     /**
      * 树种4
      */
-    @Column(name = "specie4_name")
+    @Column(name = "speciel4_name")
     private String specie4Name;
 
     /**
      * 树种5
      */
-    @Column(name = "specie5_name")
+    @Column(name = "speciel5_name")
     private String specie5Name;
 
     /**
      * 树种1数量
      */
-    private int specie1;
+    private int speciel1;
 
     /**
      * 树种2数量
      */
-    private int specie2;
+    private int speciel2;
 
     /**
      * 树种3数量
      */
-    private int specie3;
+    private int speciel3;
 
     /**
      * 树种4数量
      */
-    private int specie4;
+    private int speciel4;
 
     /**
      * 树种5数量
      */
-    private int specie5;
+    private int speciel5;
 
     /**
      * 其他树种数量
      */
-    @Column(name = "specie_others")
-    private int specieOthers;
+    @Column(name = "speciel_others")
+    private int specielOthers;
 
 
 }

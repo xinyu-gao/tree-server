@@ -1,6 +1,6 @@
 server:
   # 项目端口号
-  port: 6070
+  port: 2399
 
 spring:
   datasource:
@@ -8,7 +8,41 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://175.24.147.229:3306/tree?serverTimezone=GMT%2B8
     username: root
-    password: 123456
+    password: 123456tree
+    type: com.alibaba.druid.pool.DruidDataSource
+    #   数据源其他配置
+    #初始化时建立物理连接的个数
+    initial-size: 5
+    #最小连接池数量
+    min-idle: 2
+    #最大连接池数量 maxIdle已经不再使用
+    max-active: 20
+    #获取连接时最大等待时间，单位毫秒
+    max-wait: 60000
+    #申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+    test-while-idle: true
+    #既作为检测的间隔时间又作为testWhileIdel执行的依据
+    time-between-eviction-runs-millis: 60000
+    #销毁线程时检测当前连接的最后活动时间和当前时间差大于该值时，关闭当前连接
+    min-evictable-idle-time-millis: 30000
+    #用来检测连接是否有效的sql 必须是一个查询语句
+    #mysql中为 select 'x'
+    #oracle中为 select 1 from dual
+    validation-query: select 'x'
+    #申请连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true
+    test-on-borrow: false
+    #归还连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true
+    test-on-return: false
+    # 是否缓存preparedStatement
+    pool-prepared-statements: true
+    #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    #配置监拉统计挡成的filters. stat: 监控统计、Log4j:日志记录、waLL: 防御sqL注入
+    #如果启用日志记录时报错java.lang.ClassNotFoundException: org.apache.log4j.Priority
+    #则导入Log4j 依赖即时，Maven 地址: https://mvnrepository. com/artifact/log4j/log4
+    filters: stat,wall,1og4j
+    max-pool-prepared-statement-per-connection-size: 20
+    use-global-data-source-stat: true
+    connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
   data:
     # MongoDB 连接配置
     mongodb:
@@ -18,11 +52,77 @@ spring:
       username: tree
       password: devtree
   jpa:
+    # 是否打印sql语句
+    show-sql: true
+    # 数据库引擎InnoDB（mysql8也是这个）
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    # 自动更新表结构
+    hibernate:
+      ddl-auto: update
+
+  mail:
+    # 采用 163 的邮箱
+    host: smtp.163.com
+    # 邮箱账号
+    username: isgaoxy@163.com
+    # 邮箱授权密码
+    password: WRSREHPSHPMOXCWM
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    validate-code:
+      expiration: 600
+
+  servlet:
+    multipart:
+      # 开启文件上传
+      enabled: true
+      # 限制文件上传大小
+      max-file-size: 10MB
+  redis:
+    # Redis服务器地址
+    host: 175.24.147.229
+    # Redis数据库索引（默认为0）
+    database: 0
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password:
+    # 连接超时时间
+    timeout: 1000ms
+    lettuce:
+      pool:
+        # 连接池最大连接数
+        max-active: 8
+        # 连接池最大空闲连接数
+        max-idle: 8
+        # 连接池最小空闲连接数
+        min-idle: 1
+        # 连接池最大阻塞等待时间，负值表示没有限制
+        max-wait: -1ms
+
+minio:
+  # minio 服务器地址
+  endpoint: 175.24.147.229
+  # minio 服务器端口号
+  port: 9090
+  # minio 账号名
+  access-key: minioadmin
+  # minio 密码
+  secret-key: minioadmin
+  # 存储桶的名字
+  bucket: tree
+  secure: false
+
 
 
 secure:
   ignored:
+    # 安全框架忽略的静态网址
     urls:
       - /
       - /swagger-ui/
@@ -33,3 +133,21 @@ secure:
       - /**/*.js
       - /swagger-resources/**
       - /v2/api-docs/**
+
+jwt:
+  # http 请求头 key 值
+  tokenHeader: Authorization
+  # token 的开头标识
+  tokenHead: Bearer
+  # 密钥
+  secret: tree
+  # 有效期(s)
+  expiration: 5184000
+  # redis 中 token 黑名单的 key 值
+  blacklist: blacklist
+
+
+log:
+  host: 175.24.147.229
+  level:
+    root: INFO

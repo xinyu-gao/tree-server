@@ -13,14 +13,14 @@ import org.springframework.web.multipart.MultipartFile;
 @Api("树木图片管理")
 @Slf4j
 @RestController
-@RequestMapping("/minio")
-public class MinioController {
+@RequestMapping("/picture/tree")
+public class PictureController {
 
     @Autowired
     private TreePicService treePicService;
 
     @ApiOperation("树木图片上传")
-    @PostMapping("/upload")
+    @PostMapping()
     public HttpResult upload(@RequestParam("tree_id") String treeId,
                              @RequestParam("file") MultipartFile file,
                              @RequestParam("username") String username) throws Exception {
@@ -29,13 +29,13 @@ public class MinioController {
     }
 
     @ApiOperation("树木图片查看")
-    @GetMapping("/pic")
+    @GetMapping()
     public HttpResult picture(@RequestParam("tree_id") String treeId) {
         return HttpResult.success(treePicService.getPicturesById(treeId));
     }
 
     @ApiOperation("树木图片删除")
-    @PostMapping("/delete")
+    @DeleteMapping()
     public HttpResult delete(@RequestParam("tree_id") String treeId,
                              @RequestParam("fileNameName") String fileName,
                              @RequestParam("username") String username) throws Exception {

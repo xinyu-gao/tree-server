@@ -259,9 +259,9 @@ public class TreeInfo implements Serializable {
     @Column(name = "reviewer_id")
     private Long reviewerId;
 
-    @Column(name = "creat_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date creatTime;
-
     @Column(name = "update_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateTime;
+
+    @Column(name = "imsi")
+    private String imsi;
 }

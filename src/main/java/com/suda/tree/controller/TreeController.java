@@ -29,7 +29,7 @@ public class TreeController {
 
 
 
-    @PostMapping("/info")
+    @PostMapping("/infos")
     public HttpResult saveTreeInfo(@RequestBody TreeInfo treeInfo, @RequestParam("username") String username){
         return HttpResult.success(treeInfoService.saveTreeInfo(treeInfo, username));
     }

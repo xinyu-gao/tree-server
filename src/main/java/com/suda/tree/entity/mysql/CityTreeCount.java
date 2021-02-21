@@ -15,7 +15,7 @@ public class CityTreeCount {
 
 
     @Id
-    @Field(name = "city")
+    @Column(name = "city")
     private String city;
 
 

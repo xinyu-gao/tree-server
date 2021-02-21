@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class CityCoordinate {
 
     @Id
-    @Field(name = "city")
+    @Column(name = "city")
     private String city;
 
     /**
