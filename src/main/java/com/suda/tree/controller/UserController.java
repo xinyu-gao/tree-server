@@ -23,15 +23,8 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
 
-    @Value("${jwt.tokenHead}")
-    private String tokenHead;
-
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private ValidateCodeService validateCodeService;
-
 
     @GetMapping("/test")
     @ApiOperation("测试")
@@ -47,7 +40,6 @@ public class UserController {
         return HttpResult.success(userService.updatePassword(user));
     }
 
-
     @ApiOperation(value = "用户注册")
     @PostMapping(value = "/register")
     public HttpResult register(@RequestBody UserLoginParam userLoginParam) {
@@ -61,36 +53,6 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "登录以后返回token")
-    @PostMapping(value = "/login")
-    public HttpResult login(@RequestBody UserLoginParam userLoginParam) {
-        String token = userService.login(userLoginParam.getUsername(), userLoginParam.getPassword());
-        if (token == null) {
-            return HttpResult.validateFailed("用户名或密码错误");
-        }
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", token);
-        tokenMap.put("tokenHead", tokenHead);
-        return HttpResult.success(tokenMap);
-    }
-
-    @ApiOperation(value = "登录以后返回token")
-    @PostMapping(value = "/email/login")
-    public HttpResult loginForEmail(@RequestBody UserLoginForEmailParam userLoginParam) {
-        String token = userService.loginForEmail(userLoginParam.getEmail(), userLoginParam.getCode());
-        if (token == null) return HttpResult.validateFailed("验证码错误");
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", token);
-        tokenMap.put("tokenHead", tokenHead);
-        return HttpResult.success(tokenMap);
-    }
-
-    @GetMapping(value = "/email/code")
-    public HttpResult getEmailValidateCode(@RequestParam("email") String Email) {
-        String message = validateCodeService.createAndSend(Email);
-        return "发送成功".equals(message) ? HttpResult.success(message) : HttpResult.failed(message);
-    }
-
     @ApiOperation("获取用户所有角色")
     @GetMapping(value = "/roles")
     public HttpResult getPermissionList(@RequestParam("username") String username) {
@@ -98,25 +60,4 @@ public class UserController {
         return HttpResult.success(permissionList);
     }
 
-//    @ApiOperation("获取用户基本信息")
-//    @GetMapping(value = "/info")
-//    public HttpResult getInfoByUsername(@RequestParam("username") String username) {
-//        List<String> permissionList = userService.findRolesByUsername(username);
-//        List<>
-//        return HttpResult.success(permissionList);
-//    }
-//
-//    @ApiOperation("获取用户基本信息")
-//    @GetMapping(value = "/info/mail")
-//    public HttpResult getInfoByEmail(@RequestParam("username") String username) {
-//        List<String> permissionList = userService.findRolesByUsername(username);
-//        return HttpResult.success(permissionList);
-//    }
-
-    @ApiOperation("用户登出")
-    @PutMapping(value = "/logout")
-    public HttpResult logout(HttpServletRequest request) throws Exception {
-        return HttpResult.success(userService.logout(request));
-
-    }
 }

@@ -53,12 +53,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests();
-        // 允许对于网站静态资源的无授权访问
+        // 允许无授权访问
         for (String url : ignoreUrlsConfig().getUrls()) {
             registry.antMatchers(url).permitAll();
         }
         // 对登录注册要允许匿名访问
-        registry.antMatchers("/user/login", "/user/register")
+        registry.antMatchers("/login", "/register")
                 .permitAll()
                 //跨域请求会先进行一次options请求
                 .antMatchers(HttpMethod.OPTIONS)
