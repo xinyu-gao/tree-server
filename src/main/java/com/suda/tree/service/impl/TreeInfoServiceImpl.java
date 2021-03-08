@@ -93,11 +93,13 @@ public class TreeInfoServiceImpl implements TreeInfoService {
     @Override
     public List<CityTreeCount> genProvinceAndCityTreeCount() {
         return treeInfoRepository.getProvinceAndCityTreeCount()
-                .stream().map(item -> {
+                .stream()
+                .map(item -> {
                     String city = isMunicipality(item[0]) || isInHK_TW_M(item[0]) ?
                             String.valueOf(item[0]).substring(0, 2) : String.valueOf(item[1]);
                     return new CityTreeCount(city, Integer.parseInt(String.valueOf(item[2])));
-                }).collect(Collectors.toList());
+                })
+                .collect(Collectors.toList());
     }
 
 
