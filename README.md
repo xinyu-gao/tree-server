@@ -1,6 +1,6 @@
 删除原有容器：
 ```
-docker cotainer rm -f tree-server
+docker container rm -f tree-server
 ```
 
 构建新容器：

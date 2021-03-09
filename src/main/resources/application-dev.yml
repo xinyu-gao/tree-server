@@ -151,3 +151,6 @@ log:
   host: 175.24.147.229
   level:
     root: INFO
+
+socket:
+  port: 2599

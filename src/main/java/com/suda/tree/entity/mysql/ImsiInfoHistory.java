@@ -2,9 +2,9 @@ package com.suda.tree.entity.mysql;
 
 
 import lombok.Data;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -15,9 +15,9 @@ public class ImsiInfoHistory {
      * 主键
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "id")
-    private String id;
+    private Long id;
 
     /**
      * IMSI
@@ -49,15 +49,10 @@ public class ImsiInfoHistory {
     @Column(name = "slant")
     private float slant;
 
-    /**
-     * 是否在线
-     */
-    @Column(name = "is_online")
-    private boolean isOnline;
 
     /**
      * 最后一次数据发送时间
      */
     @Column(name = "send_time")
-    private boolean sendTime;
+    private Date sendTime;
 }

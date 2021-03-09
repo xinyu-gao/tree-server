@@ -47,6 +47,7 @@ public class ImsiInfo {
 
     /**
      * 是否在线
+     * 定时搜索一遍数据库，如果有某个发送时间超过一个定值，就判定为离线
      */
     @Column(name = "is_online")
     private boolean isOnline;
@@ -56,4 +57,15 @@ public class ImsiInfo {
      */
     @Column(name = "send_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date sendTime;
+
+    public ImsiInfo(String imsi, float temp, float humidity, float carbonDioxide, float slant, boolean isOnline, Date sendTime) {
+        this.imsi = imsi;
+        this.temp = temp;
+        this.humidity = humidity;
+        this.carbonDioxide = carbonDioxide;
+        this.slant = slant;
+        this.isOnline = isOnline;
+        this.sendTime = sendTime;
+    }
+    public ImsiInfo(){}
 }
