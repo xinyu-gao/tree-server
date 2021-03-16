@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 树木等级统计（以省为单位统计）
+ */
 @Entity
 @Data
 @Table(name = "tree_grade_statistic")
@@ -19,25 +22,25 @@ public class TreeGradeStatistic {
     private String province;
 
     /**
-     * 国家一级古树
+     * 国家一级古树数量
      */
     @Column(name = "level1")
     private int level1;
 
     /**
-     * 国家二级古树
+     * 国家二级古树数量
      */
     @Column(name = "level2")
     private int level2;
 
     /**
-     * 国家三级古树
+     * 国家三级古树数量
      */
     @Column(name = "level3")
     private int level3;
 
     /**
-     * 名木
+     * 名木数量
      */
     @Column(name = "famous")
     private int famous;

@@ -5,6 +5,9 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * 用户、角色对应表
+ */
 @Data
 @Entity
 @Table(name = "user_role")

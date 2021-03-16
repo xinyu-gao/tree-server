@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+/**
+ * 角色
+ */
 @Data
 @Entity
 @Table(name = "role")

@@ -8,6 +8,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 树木普查信息
+ */
 @Data
 @Entity
 @Table(

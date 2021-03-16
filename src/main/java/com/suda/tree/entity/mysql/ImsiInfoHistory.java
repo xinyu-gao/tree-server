@@ -6,6 +6,9 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * 树莓派监测历史数据
+ */
 @Entity
 @Data
 @Table(name = "imsi_info_history")

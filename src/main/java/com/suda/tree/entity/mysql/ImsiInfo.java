@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
+/**
+ * 树莓派监测数据
+ */
 @Entity
 @Data
 @Table(name = "imsi_info")

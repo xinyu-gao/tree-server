@@ -4,11 +4,12 @@ import com.suda.tree.util.JpaConverterListJson;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
+/**
+ * 树木的图片
+ */
 @Entity
 @Data
 @Table(name = "tree_picture")

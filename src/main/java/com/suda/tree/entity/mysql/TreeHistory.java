@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ * 古树历史信息
+ */
 @Data
 @Entity
 @Table(name = "tree_history")

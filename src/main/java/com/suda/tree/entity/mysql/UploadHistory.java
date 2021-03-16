@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 数据修改记录
+ */
 @Entity
 @Data
 @Table(name = "upload_history")

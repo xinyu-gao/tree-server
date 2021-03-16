@@ -9,6 +9,9 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+/**
+ * 用户信息
+ */
 @Data
 @Entity
 @DynamicInsert

@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+/**
+ * 树种统计
+ */
 @Entity
 @Data
 @Table(name = "tree_species_statistic")

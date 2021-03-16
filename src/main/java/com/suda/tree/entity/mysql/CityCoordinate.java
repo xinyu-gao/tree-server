@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 城市的中心经纬度
+ */
 @Entity
 @Data
 @Table(name = "city_coordinate")

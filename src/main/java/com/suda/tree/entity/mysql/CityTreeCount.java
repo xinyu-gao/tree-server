@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 城市拥有的树木的数量
+ */
 @Entity
 @Data
 @Table(name = "city_tree_count")
