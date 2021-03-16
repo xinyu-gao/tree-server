@@ -2,6 +2,7 @@ package com.suda.tree.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Set;
 
 public interface TreePicService {
@@ -10,5 +11,5 @@ public interface TreePicService {
 
     void delete(String id, String fileName, String username) throws Exception;
 
-    Set<String> getPicturesById(String treeId);
+    List<String> getPicturesById(String treeId);
 }

@@ -28,6 +28,8 @@ public interface TreeInfoService {
 
     PageResult<TreeInfo> getTreeList(int page, int size,int desc);
 
+    PageResult<TreeInfo> getTreeListSorted(int page, int size, String[] keys, int asc);
+
     List<TreeInfo> getTreeList(String city);
 
     List<TreeInfo> getTreeListAll();

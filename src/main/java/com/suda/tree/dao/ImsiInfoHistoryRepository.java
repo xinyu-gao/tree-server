@@ -26,6 +26,8 @@ public interface ImsiInfoHistoryRepository extends JpaRepository<ImsiInfoHistory
     @Override
     Optional<ImsiInfoHistory> findById(Long s);
 
+    Page<ImsiInfoHistory> findByImsi(String imsi , Pageable pageable);
+
     Page<ImsiInfoHistory> findByImsiOrderBySendTimeDesc(String imsi , Pageable pageable);
 }
 

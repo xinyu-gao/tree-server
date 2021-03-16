@@ -2,15 +2,13 @@ package com.suda.tree.service.impl;
 
 import com.suda.tree.dao.ExistedProvinceAndCityRepository;
 import com.suda.tree.dao.TreeInfoRepository;
-import com.suda.tree.entity.mongo.ExistedProvinceAndCity;
+import com.suda.tree.entity.mysql.ExistedProvinceAndCity;
 import com.suda.tree.service.ExistedProvinceAndCityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class ExistedProvinceAndCityServiceImpl implements ExistedProvinceAndCityService {

@@ -10,7 +10,21 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "tree_info")
+@Table(
+        name = "tree_info",
+        uniqueConstraints = @UniqueConstraint(columnNames = "tree_id"),
+        indexes = {
+                @Index(columnList = "survey_number"),
+                @Index(columnList = "chinese_name"),
+                @Index(columnList = "family,genus,species"),
+                @Index(columnList = "location_province,location_city,location_district"),
+                @Index(columnList = "location_detail"),
+                @Index(columnList = "longitude,latitude"),
+                @Index(columnList = "growth_place"),
+                @Index(columnList = "dist_ch"),
+
+        }
+)
 public class TreeInfo implements Serializable {
 
     /**

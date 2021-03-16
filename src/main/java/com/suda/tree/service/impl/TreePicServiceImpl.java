@@ -2,8 +2,8 @@ package com.suda.tree.service.impl;
 
 import com.suda.tree.dao.TreePictureRepository;
 import com.suda.tree.dao.UploadHistoryRepository;
-import com.suda.tree.entity.mongo.TreePicture;
-import com.suda.tree.entity.mongo.UploadHistory;
+import com.suda.tree.entity.mysql.TreePicture;
+import com.suda.tree.entity.mysql.UploadHistory;
 import com.suda.tree.service.MinioService;
 import com.suda.tree.service.TreePicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class TreePicServiceImpl implements TreePicService {
         Optional<TreePicture> treePictureOptional = treePictureRepository.findById(id);
         if (treePictureOptional.isPresent()) {
             TreePicture treePicture = treePictureOptional.get();
-            Set<String> urls = treePicture.getPicUrls();
+            List<String> urls = treePicture.getPicUrls();
             if (urls.contains(url)) {
                 throw new Exception("该图片 URL 已存在");
             }
@@ -54,7 +54,7 @@ public class TreePicServiceImpl implements TreePicService {
     }
 
     @Override
-    public Set<String> getPicturesById(String treeId){
+    public List<String> getPicturesById(String treeId){
         Optional<TreePicture> pictures = treePictureRepository.findByTreeId(treeId);
         return pictures.map(TreePicture::getPicUrls).orElse(null);
 
@@ -67,7 +67,7 @@ public class TreePicServiceImpl implements TreePicService {
         Optional<TreePicture> treePictureOptional = treePictureRepository.findById(id);
         if (treePictureOptional.isPresent()) {
             TreePicture treePicture = treePictureOptional.get();
-            Set<String> urls = treePicture.getPicUrls();
+            List<String> urls = treePicture.getPicUrls();
             if (urls.contains(url)) {
                 throw new Exception("该图片 URL 已存在");
             }
@@ -82,10 +82,10 @@ public class TreePicServiceImpl implements TreePicService {
     }
 
     private void save(String id, String picUrl) {
-        treePictureRepository.save(new TreePicture(id, Collections.singleton(picUrl)));
+        treePictureRepository.save(new TreePicture(id, Collections.singletonList(picUrl)));
     }
 
-    private void save(String id, Set<String> picUrls) {
+    private void save(String id, List<String> picUrls) {
         treePictureRepository.save(new TreePicture(id, picUrls));
     }
 }

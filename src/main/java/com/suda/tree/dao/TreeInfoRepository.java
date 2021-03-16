@@ -26,7 +26,7 @@ public interface TreeInfoRepository extends JpaRepository<TreeInfo, String> {
     @Override
     List<TreeInfo> findAll();
 
-    @Query(nativeQuery = true, value ="select location_province, locatio_city from tree_info group by location_province, locatio_city ORDER BY location_province, locatio_city")
+    @Query(nativeQuery = true, value ="select location_province, location_city from tree_info group by location_province, location_city ORDER BY location_province, location_city")
     List<Object[]> getExistedProvinceAndCityStatistic();
 
     List<TreeInfo> findTreeInfoByLocationCity(String city);

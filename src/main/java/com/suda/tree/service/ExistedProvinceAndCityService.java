@@ -1,6 +1,6 @@
 package com.suda.tree.service;
 
-import com.suda.tree.entity.mongo.ExistedProvinceAndCity;
+import com.suda.tree.entity.mysql.ExistedProvinceAndCity;
 
 import java.util.List;
 

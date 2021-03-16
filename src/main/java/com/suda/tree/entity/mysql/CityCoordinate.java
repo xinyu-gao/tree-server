@@ -1,7 +1,6 @@
 package com.suda.tree.entity.mysql;
 
 import lombok.Data;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

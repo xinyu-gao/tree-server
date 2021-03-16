@@ -1,6 +1,8 @@
 package com.suda.tree.controller;
 
+import com.suda.tree.dao.TreePictureRepository;
 import com.suda.tree.dto.result.HttpResult;
+import com.suda.tree.entity.mysql.TreePicture;
 import com.suda.tree.service.TreePicService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +21,9 @@ public class PictureController {
     @Autowired
     private TreePicService treePicService;
 
+    @Autowired
+    private TreePictureRepository treePicRepository;
+
     @ApiOperation("树木图片上传")
     @PostMapping()
     public HttpResult upload(@RequestParam("tree_id") String treeId,
@@ -32,6 +37,11 @@ public class PictureController {
     @GetMapping()
     public HttpResult picture(@RequestParam("tree_id") String treeId) {
         return HttpResult.success(treePicService.getPicturesById(treeId));
+    }
+    @ApiOperation("树木图")
+    @PostMapping("/s")
+    public HttpResult spicture(@RequestBody TreePicture o) {
+        return HttpResult.success(treePicRepository.save(o));
     }
 
     @ApiOperation("树木图片删除")

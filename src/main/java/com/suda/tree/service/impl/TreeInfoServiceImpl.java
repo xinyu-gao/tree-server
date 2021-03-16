@@ -3,10 +3,10 @@ package com.suda.tree.service.impl;
 import com.suda.tree.dao.TreeInfoRepository;
 import com.suda.tree.dao.UploadHistoryRepository;
 import com.suda.tree.dto.result.PageResult;
-import com.suda.tree.entity.mongo.UploadHistory;
 import com.suda.tree.entity.mysql.CityTreeCount;
 import com.suda.tree.entity.mysql.TreeGradeStatistic;
 import com.suda.tree.entity.mysql.TreeInfo;
+import com.suda.tree.entity.mysql.UploadHistory;
 import com.suda.tree.service.StatisticService;
 import com.suda.tree.service.TreeInfoService;
 import com.suda.tree.util.PageUtil;
@@ -54,6 +54,17 @@ public class TreeInfoServiceImpl implements TreeInfoService {
     public PageResult<TreeInfo> getTreeList(int page, int size, int desc) {
         Sort.Order o1 = new Sort.Order(desc == 1 ? Sort.Direction.DESC : Sort.Direction.ASC, "treeId");
         Pageable pageable = PageRequest.of(page, size, Sort.by(o1));
+        Page<TreeInfo> treeInfos = treeInfoRepository.findAll(pageable);
+        return PageUtil.setResult(treeInfos);
+    }
+
+    @Override
+    public PageResult<TreeInfo> getTreeListSorted(int page, int size, String[] keys, int asc) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        for(String i : keys){
+            sorts.add(new Sort.Order(asc == 1 ? Sort.Direction.ASC : Sort.Direction.DESC, i));
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sorts));
         Page<TreeInfo> treeInfos = treeInfoRepository.findAll(pageable);
         return PageUtil.setResult(treeInfos);
     }

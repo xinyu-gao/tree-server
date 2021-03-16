@@ -43,14 +43,6 @@ spring:
     max-pool-prepared-statement-per-connection-size: 20
     use-global-data-source-stat: true
     connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-  data:
-    # MongoDB 连接配置
-    mongodb:
-      host: 175.24.147.229
-      port: 27018
-      database: tree
-      username: tree
-      password: devtree
   jpa:
     # 是否打印sql语句
     show-sql: true

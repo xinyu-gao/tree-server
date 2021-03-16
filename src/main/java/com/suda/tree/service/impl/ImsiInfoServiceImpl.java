@@ -2,8 +2,10 @@ package com.suda.tree.service.impl;
 
 import com.suda.tree.dao.ImsiInfoHistoryRepository;
 import com.suda.tree.dto.result.LineDataResult;
+import com.suda.tree.dto.result.PageResult;
 import com.suda.tree.entity.mysql.ImsiInfoHistory;
-import com.suda.tree.service.ImsiInfoHistoryService;
+import com.suda.tree.service.ImsiInfoService;
+import com.suda.tree.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Service
-public class ImsiInfoHistoryServiceImpl implements ImsiInfoHistoryService {
+public class ImsiInfoServiceImpl implements ImsiInfoService {
 
     @Autowired
     private ImsiInfoHistoryRepository imsiInfoHistoryRepository;
@@ -36,4 +38,9 @@ public class ImsiInfoHistoryServiceImpl implements ImsiInfoHistoryService {
         ;
         return new LineDataResult(imsi, lineTimeList, lineTempList, lineHumidityList, lineSlantList, lineCarbonDioxideListList);
     }
+    public PageResult<ImsiInfoHistory> getNodeHistoryInfoByImsi(String imsi, int page, int size){
+        Page<ImsiInfoHistory> nodeList = imsiInfoHistoryRepository.findByImsi(imsi, PageRequest.of(page, size));
+        return PageUtil.setResult(nodeList);
+    }
+
 }
