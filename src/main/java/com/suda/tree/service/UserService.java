@@ -21,6 +21,10 @@ public interface UserService {
 
     boolean updatePassword(User user);
 
+    boolean updateEmail(User user);
+
+    boolean updatePhoneNumber(User user);
+
     boolean updateUserRoles(User user);
 
     String login(String username, String password);
@@ -32,4 +36,8 @@ public interface UserService {
     UserDetails loadUserByUsername(String username);
 
     String findUsernameByEmail(String Email);
+
+    PageResult<User> getUserListSorted(int page, int size, String[] keys, int asc);
+
+    PageResult<User> getUserList(int page, int size);
 }

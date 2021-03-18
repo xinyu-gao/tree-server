@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Api(value = "登录登出")
 @RestController
-@RequestMapping()
+@RequestMapping("/log")
 public class LoginController {
 
     @Value("${jwt.tokenHead}")
@@ -27,7 +27,7 @@ public class LoginController {
     private UserService userService;
 
     @ApiOperation(value = "账号密码登录")
-    @PostMapping(value = "/login")
+    @PostMapping( "/login")
     public HttpResult login(@RequestBody UserLoginParam userLoginParam) {
         String token = userService.login(userLoginParam.getUsername(), userLoginParam.getPassword());
         if (token == null) {
@@ -40,7 +40,7 @@ public class LoginController {
     }
 
     @ApiOperation(value = "邮箱登录")
-    @PostMapping(value = "/login/email")
+    @PostMapping( "/login/email")
     public HttpResult loginForEmail(@RequestBody UserLoginForEmailParam userLoginParam) {
         String token = userService.loginForEmail(userLoginParam.getEmail(), userLoginParam.getCode());
         if (token == null) return HttpResult.validateFailed("验证码错误");
@@ -51,7 +51,7 @@ public class LoginController {
     }
 
     @ApiOperation("用户登出")
-    @PutMapping(value = "/logout")
+    @PostMapping( "/logout")
     public HttpResult logout(HttpServletRequest request) throws Exception {
         return HttpResult.success(userService.logout(request));
 

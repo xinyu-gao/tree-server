@@ -2,7 +2,9 @@ package com.suda.tree.entity.mysql;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import com.suda.tree.util.JpaConverterListJson;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -47,5 +49,9 @@ public class User implements Serializable {
      */
     @Column(name = "status", columnDefinition = "int default 1")
     private String status;
+
+    @Column(name = "roles", columnDefinition = "TEXT")
+    @Convert(converter = JpaConverterListJson.class)
+    private List<String> roles;
 
 }

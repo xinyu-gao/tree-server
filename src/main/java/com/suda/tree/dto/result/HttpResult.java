@@ -54,12 +54,6 @@ public class HttpResult<T> {
         return failed(ResultCode.FAILED);
     }
 
-    /**
-     * 参数验证失败返回结果
-     */
-    public static <T> HttpResult<T> validateFailed() {
-        return failed(ResultCode.VALIDATE_FAILED);
-    }
 
     /**
      * 参数验证失败返回结果

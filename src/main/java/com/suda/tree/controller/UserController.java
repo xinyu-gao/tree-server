@@ -40,12 +40,21 @@ public class UserController {
         return HttpResult.success(userService.updatePassword(user));
     }
 
+    @ApiOperation(value = "修改邮箱")
+    @PutMapping("/email")
+    public HttpResult updateEmail(@RequestBody User user) {
+        return HttpResult.success(userService.updateEmail(user));
+    }
+
+    @ApiOperation(value = "修改电话号码")
+    @PutMapping("/phone_number")
+    public HttpResult updatePhoneNumber(@RequestBody User user) {
+        return HttpResult.success(userService.updatePhoneNumber(user));
+    }
+
     @ApiOperation(value = "用户注册")
     @PostMapping(value = "/register")
-    public HttpResult register(@RequestBody UserLoginParam userLoginParam) {
-        User user = new User();
-        user.setUsername(userLoginParam.getUsername());
-        user.setPassword(userLoginParam.getPassword());
+    public HttpResult register(@RequestBody User user) {
         if (userService.saveUser(user)) {
             return HttpResult.success("注册成功");
         } else {
@@ -58,6 +67,24 @@ public class UserController {
     public HttpResult getPermissionList(@RequestParam("username") String username) {
         List<String> permissionList = userService.findRolesByUsername(username);
         return HttpResult.success(permissionList);
+    }
+
+    @ApiOperation("获取用户排序列表")
+    @GetMapping("/list_sorted")
+    public HttpResult getUserListSorted(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size,
+            @RequestParam("keys") String[] keys,
+            @RequestParam(name = "asc") int asc) {
+        return HttpResult.success(userService.getUserListSorted(page, size, keys, asc));
+    }
+
+    @ApiOperation("获取用户列表")
+    @GetMapping("/list")
+    public HttpResult getUserList(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size) {
+        return HttpResult.success(userService.getUserList(page, size));
     }
 
 }

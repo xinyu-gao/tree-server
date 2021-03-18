@@ -3,6 +3,7 @@ package com.suda.tree.service.impl;
 import com.suda.tree.dao.UserRepository;
 import com.suda.tree.dto.result.PageResult;
 import com.suda.tree.entity.AdminUserDetails;
+import com.suda.tree.entity.mysql.TreeInfo;
 import com.suda.tree.entity.mysql.User;
 import com.suda.tree.exception.CacheException;
 import com.suda.tree.service.RedisService;
@@ -13,7 +14,10 @@ import com.suda.tree.util.PageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +28,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -74,7 +79,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<String> findRolesByUsername(String username) {
-        return userRepository.findRolesByUsername(username);
+        return userRepository.findUserByUsername(username).getRoles();
     }
 
     @Override
@@ -95,8 +100,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean updateEmail(User user) {
+        return 1 == userRepository.updateEmailByUsername(user.getUsername(), user.getEmail());
+    }
+
+    @Override
+    public boolean updatePhoneNumber(User user) {
+        return 1 == userRepository.updatePhoneByUsername(user.getUsername(), user.getPhoneNumber());
+    }
+
+    @Override
     public boolean updateUserRoles(User user) {
-        return 1 == userRepository.updatePasswordByUsername(user.getUsername(), user.getPassword());
+        User saveUser = userRepository.findUserByUsername(user.getUsername());
+        saveUser.setRoles(user.getRoles());
+        return null == userRepository.save(saveUser);
     }
 
     @Override
@@ -186,4 +203,22 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUsernameByEmail(Email);
     }
 
+
+    @Override
+    public PageResult<User> getUserListSorted(int page, int size, String[] keys, int asc) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        for(String i : keys){
+            sorts.add(new Sort.Order(asc == 1 ? Sort.Direction.ASC : Sort.Direction.DESC, i));
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sorts));
+        Page<User> users = userRepository.findAll(pageable);
+        return PageUtil.setResult(users);
+    }
+
+    @Override
+    public PageResult<User> getUserList(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<User> users = userRepository.findAll(pageable);
+        return PageUtil.setResult(users);
+    }
 }
