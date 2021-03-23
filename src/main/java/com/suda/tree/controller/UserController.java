@@ -31,7 +31,6 @@ public class UserController {
     @PreAuthorize("hasAuthority('admin')")
     public HttpResult test() throws Exception {
         throw new Exception("dasd");
-//        return HttpResult.success(tokenHead);
     }
 
     @ApiOperation(value = "修改密码")
@@ -50,6 +49,12 @@ public class UserController {
     @PutMapping("/phone_number")
     public HttpResult updatePhoneNumber(@RequestBody User user) {
         return HttpResult.success(userService.updatePhoneNumber(user));
+    }
+
+    @ApiOperation("修改角色")
+    @PutMapping("/roles")
+    public HttpResult updateRoles(@RequestBody User user) {
+        return HttpResult.success(userService.updateUserRoles(user));
     }
 
     @ApiOperation(value = "用户注册")
@@ -85,6 +90,18 @@ public class UserController {
             @RequestParam("page") int page,
             @RequestParam("size") int size) {
         return HttpResult.success(userService.getUserList(page, size));
+    }
+
+    @ApiOperation("删除用户")
+    @DeleteMapping("")
+    public HttpResult deleteUser(@RequestParam("username") String username) {
+        return HttpResult.success(userService.deleteUser(username));
+    }
+
+    @ApiOperation("查询用户")
+    @GetMapping("")
+    public HttpResult getUser(@RequestParam("username") String username) {
+        return HttpResult.success(userService.findByUsername(username));
     }
 
 }

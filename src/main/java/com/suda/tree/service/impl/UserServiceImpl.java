@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updatePassword(User user) {
-        return 1 == userRepository.updatePasswordByUsername(user.getUsername(), user.getPassword());
+        return 1 == userRepository.updatePasswordByUsername(user.getUsername(), passwordEncoder.encode(user.getPassword()));
     }
 
     @Override
@@ -220,5 +220,10 @@ public class UserServiceImpl implements UserService {
         Pageable pageable = PageRequest.of(page, size);
         Page<User> users = userRepository.findAll(pageable);
         return PageUtil.setResult(users);
+    }
+
+    @Override
+    public boolean deleteUser(String username) {
+        return userRepository.deleteByUsername(username) == 1;
     }
 }

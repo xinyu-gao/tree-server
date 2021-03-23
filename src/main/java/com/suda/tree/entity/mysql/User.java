@@ -54,4 +54,11 @@ public class User implements Serializable {
     @Convert(converter = JpaConverterListJson.class)
     private List<String> roles;
 
+    public User(String username) {
+        this.username = username;
+    }
+
+    public User() {
+
+    }
 }

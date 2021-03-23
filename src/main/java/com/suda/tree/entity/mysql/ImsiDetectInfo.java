@@ -4,6 +4,7 @@ import com.suda.tree.util.JpaConverterListJson;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,6 +28,12 @@ public class ImsiDetectInfo {
     @Column(name = "data", columnDefinition = "MEDIUMTEXT")
     @Convert(converter = JpaConverterListJson.class)
     private List<List<Float>> data;
+
+    /**
+     * 最后一次数据发送时间
+     */
+    @Column(name = "send_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private Date sendTime;
 
     public ImsiDetectInfo(String imsi, List<List<Float>> data) {
         this.imsi = imsi;

@@ -29,7 +29,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying
     @Transactional
-    @Query(nativeQuery = true, value = "update user set phone_number = :phone_numberwhere username = :username")
+    @Query(nativeQuery = true, value = "update user set phone_number = :phone_number where username = :username")
     int updatePhoneByUsername(@Param("username") String username, @Param("phone_number") String phoneNumber);
 
     @Query(nativeQuery = true, value = "select username from user where email = ?1")
@@ -40,4 +40,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Override
     Page<User> findAll(Pageable pageable);
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "delete from user where username = :username")
+    int deleteByUsername(@Param("username") String username);
 }

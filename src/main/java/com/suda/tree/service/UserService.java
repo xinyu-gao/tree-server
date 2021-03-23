@@ -40,4 +40,6 @@ public interface UserService {
     PageResult<User> getUserListSorted(int page, int size, String[] keys, int asc);
 
     PageResult<User> getUserList(int page, int size);
+
+    boolean deleteUser(String username);
 }

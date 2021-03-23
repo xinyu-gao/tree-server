@@ -226,9 +226,6 @@ public class TreeInfo implements Serializable {
     private String envFactor;
 
     /**
-     * 新增树木原因：树龄增长、遗漏树木、异地移植
-     */
-    /**
      * 管护单位（个人）
      */
     @Column(name = "management")
