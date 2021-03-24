@@ -6,6 +6,7 @@ import com.suda.tree.entity.mysql.ImsiDetectInfo;
 import com.suda.tree.entity.mysql.ImsiDetectInfoHistory;
 import com.suda.tree.service.ImsiDetectInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class ImsiDetectInfoServiceImpl implements ImsiDetectInfoService {
     private ImsiDetectInfoHistoryRepository imsiDetectInfoHistoryRepository;
 
     @Override
+    @Async
     public void saveImsiDetectInfo(ImsiDetectInfo imsiDetectInfo) {
         imsiDetectInfoRepository.save(imsiDetectInfo);
     }
@@ -31,6 +33,7 @@ public class ImsiDetectInfoServiceImpl implements ImsiDetectInfoService {
     }
 
     @Override
+    @Async
     public void saveImsiDetectHInfoHistory(ImsiDetectInfoHistory imsiDetectInfoHistory) {
         imsiDetectInfoHistoryRepository.save(imsiDetectInfoHistory);
     }

@@ -58,13 +58,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             registry.antMatchers(url).permitAll();
         }
         // 对登录注册要允许匿名访问
-        registry.antMatchers("/log/login", "/user/register", "/imsi")
-                .permitAll()
+        registry
                 //跨域请求会先进行一次options请求
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()
-//                .antMatchers("/**")//测试时全部运行访问
-//                .permitAll()
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest()
                 .authenticated();

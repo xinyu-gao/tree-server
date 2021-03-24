@@ -113,7 +113,7 @@ minio:
 
 secure:
   ignored:
-    # 安全框架忽略的静态网址
+    # 安全框架忽略的路由
     urls:
       - /
       - /swagger-ui/
@@ -124,6 +124,10 @@ secure:
       - /**/*.js
       - /swagger-resources/**
       - /v2/api-docs/**
+      - "/log/login"
+      - "/user/register"
+      - "/imsi"
+      - "/ws"
 
 jwt:
   # http 请求头 key 值
