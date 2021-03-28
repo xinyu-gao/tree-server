@@ -10,43 +10,41 @@ spring:
     username: root
     password: 123456tree
     type: com.alibaba.druid.pool.DruidDataSource
-    #   数据源其他配置
-    #初始化时建立物理连接的个数
+    # 数据源其他配置
+    # 初始化时建立物理连接的个数
     initial-size: 5
-    #最小连接池数量
+    # 最小连接池数量
     min-idle: 2
-    #最大连接池数量 maxIdle已经不再使用
+    # 最大连接池数量 maxIdle已经不再使用
     max-active: 20
-    #获取连接时最大等待时间，单位毫秒
+    # 获取连接时最大等待时间，单位毫秒
     max-wait: 60000
-    #申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+    # 申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
     test-while-idle: true
-    #既作为检测的间隔时间又作为 testWhileIdel 执行的依据
+    # 既作为检测的间隔时间又作为 testWhileIdel 执行的依据
     time-between-eviction-runs-millis: 60000
-    #销毁线程时检测当前连接的最后活动时间和当前时间差大于该值时，关闭当前连接
+    # 销毁线程时检测当前连接的最后活动时间和当前时间差大于该值时，关闭当前连接
     min-evictable-idle-time-millis: 30000
-    #用来检测连接是否有效的sql 必须是一个查询语句
-    #mysql中为 select 'x'
+    # 用来检测连接是否有效的sql 必须是一个查询语句
+    # mysql中为 select 'x'
     validation-query: select 'x'
-    #申请连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true
+    # 申请连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true
     test-on-borrow: false
-    #归还连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true
+    # 归还连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true
     test-on-return: false
     # 是否缓存preparedStatement
     pool-prepared-statements: true
-    #   配置监控统计拦截的 filters，去掉后监控界面 sql 无法统计，'wall' 用于防火墙
-    #配置监拉统计挡成的 filters. stat: 监控统计、Log4j:日志记录、waLL: 防御sqL注入
-    #如果启用日志记录时报错 java.lang.ClassNotFoundException: org.apache.log4j.Priority
-    #则导入 Log4j 依赖即时，Maven 地址: https://mvnrepository. com/artifact/log4j/log4
+    # 配置监控统计拦截的 filters，去掉后监控界面 sql 无法统计，'wall' 用于防火墙
+    # 配置监拉统计挡成的 filters. stat: 监控统计、Log4j:日志记录、waLL: 防御sqL注入
     filters: stat,wall,1og4j
     max-pool-prepared-statement-per-connection-size: 20
     use-global-data-source-stat: true
     connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
   jpa:
-    # 是否打印sql语句
+    # 是否打印 sql 语句
     show-sql: true
-    # 数据库引擎InnoDB（mysql8也是这个）
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    # 数据库引擎 InnoDB
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     # 自动更新表结构
     hibernate:
       ddl-auto: update
@@ -58,13 +56,11 @@ spring:
     username: isgaoxy@163.com
     # 邮箱授权密码
     password: WRSREHPSHPMOXCWM
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
+    properties.mail.smtp:
+      auth: true
+      starttls:
+        enable: true
+        required: true
     validate-code:
       expiration: 600
 
@@ -108,8 +104,6 @@ minio:
   # 存储桶的名字
   bucket: tree
   secure: false
-
-
 
 secure:
   ignored:

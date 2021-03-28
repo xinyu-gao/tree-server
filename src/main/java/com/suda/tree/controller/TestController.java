@@ -56,7 +56,6 @@ public class TestController {
 
     @PostMapping("/city")
     public HttpResult save(@RequestBody City o){
-//        Map<String, Map<String, String>> m = new HashMap<String, Map<String, String>>(o);
         List<CityCoordinate> lists = new ArrayList<>();
         for(City.Location i : o.getMunicipalities()) {
             String[] g = i.getG().split("\\|");

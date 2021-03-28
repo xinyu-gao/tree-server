@@ -29,7 +29,10 @@ public interface TreeInfoRepository extends JpaRepository<TreeInfo, String> {
     @Query(nativeQuery = true, value ="select location_province, location_city from tree_info group by location_province, location_city ORDER BY location_province, location_city")
     List<Object[]> getExistedProvinceAndCityStatistic();
 
-    List<TreeInfo> findTreeInfoByLocationCity(String city);
+
+    List<TreeInfo> findTreeInfoByLocationProvinceContainingOrLocationCityContaining(String province, String city);
+
+
 
     @Query(nativeQuery = true, value ="SELECT location_province, location_city, count(tree_id) FROM `tree_info` group by location_province, location_city")
     List<Object[]> getProvinceAndCityTreeCount();

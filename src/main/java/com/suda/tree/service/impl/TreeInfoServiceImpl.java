@@ -10,6 +10,7 @@ import com.suda.tree.entity.mysql.UploadHistory;
 import com.suda.tree.service.StatisticService;
 import com.suda.tree.service.TreeInfoService;
 import com.suda.tree.util.PageUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class TreeInfoServiceImpl implements TreeInfoService {
     @Autowired
     private TreeInfoRepository treeInfoRepository;
@@ -71,7 +73,13 @@ public class TreeInfoServiceImpl implements TreeInfoService {
 
     @Override
     public List<TreeInfo> getTreeList(String city) {
-        return treeInfoRepository.findTreeInfoByLocationCity(city);
+//        if(isMunicipality(city) || isInHK_TW_M(city)){
+//            log.info(city);
+//            return treeInfoRepository.findTreeInfoByLocationProvinceLike(city);
+//        }else {
+//            return treeInfoRepository.findTreeInfoByLocationCityLike(city);
+//        }
+        return treeInfoRepository.findTreeInfoByLocationProvinceContainingOrLocationCityContaining(city, city);
     }
 
     @Override
