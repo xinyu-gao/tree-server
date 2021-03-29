@@ -35,4 +35,6 @@ public interface TreeInfoService {
     List<TreeInfo> getTreeListAll();
 
     List<CityTreeCount> genProvinceAndCityTreeCount();
+
+    List<TreeInfo> getInfosFuzzyQuery(String data);
 }

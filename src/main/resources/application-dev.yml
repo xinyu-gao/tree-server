@@ -4,11 +4,12 @@ server:
 
 spring:
   datasource:
-    # MySQL 连接配置
+    # MySQL 连接配置， 5.0 为 com.mysql.jdbc.Driver
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://175.24.147.229:3306/tree?serverTimezone=GMT%2B8
     username: root
     password: 123456tree
+
     type: com.alibaba.druid.pool.DruidDataSource
     # 数据源其他配置
     # 初始化时建立物理连接的个数

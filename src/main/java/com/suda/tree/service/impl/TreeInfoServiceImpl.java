@@ -121,11 +121,16 @@ public class TreeInfoServiceImpl implements TreeInfoService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<TreeInfo> getInfosFuzzyQuery(String data) {
+        return treeInfoRepository.findTreeInfoByTreeIdLikeOrChineseNameLikeOrAliasLikeOrLatinNameLike(data,data,data,data);
+    }
+
 
     /**
      * 判断是否是直辖市
      */
-    public boolean isMunicipality(Object o) {
+    private boolean isMunicipality(Object o) {
         String city = String.valueOf(o);
         return city.startsWith("北京") || city.startsWith("天津") || city.startsWith("上海") || city.startsWith("重庆");
     }
@@ -133,7 +138,7 @@ public class TreeInfoServiceImpl implements TreeInfoService {
     /**
      * 判断是否是港澳台城市
      */
-    public boolean isInHK_TW_M(Object o) {
+    private boolean isInHK_TW_M(Object o) {
         String city = String.valueOf(o);
         return city.startsWith("香港") || city.startsWith("澳门") || city.startsWith("台湾");
     }
