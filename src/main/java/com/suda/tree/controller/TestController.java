@@ -6,22 +6,21 @@ import com.suda.tree.dao.TreeInfoRepository;
 import com.suda.tree.dto.City;
 import com.suda.tree.dto.result.HttpResult;
 import com.suda.tree.entity.mysql.CityCoordinate;
-import com.suda.tree.service.CityTreeCountService;
-import com.suda.tree.service.ExistedProvinceAndCityService;
-import com.suda.tree.service.TreeInfoService;
-import com.suda.tree.service.TreePicService;
+import com.suda.tree.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.EncodeException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/test")
 @RestController
 public class TestController {
+
+    @Autowired
+    private WebSocketService webSocketService;
 
     @Autowired
     private TreePicService treePicService;
@@ -52,6 +51,11 @@ public class TestController {
     @PostMapping("")
     public HttpResult test(){
         return HttpResult.success(cityTreeCountRepository.findCityAndCoordinate());
+    }
+
+    @GetMapping("/ws")
+    public void test2() throws IOException, EncodeException {
+        WebSocketService.sendInfoForAll("111");
     }
 
     @PostMapping("/city")

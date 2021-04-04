@@ -22,12 +22,14 @@ import javax.persistence.*;
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
-    private Long userId;
+    private String userId;
 
     @Column(name = "username")
     private String username;
+
+    @Column(name = "avatar")
+    private String avatar;
 
     @Column(name = "password")
     private String password;

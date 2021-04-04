@@ -123,6 +123,8 @@ secure:
       - "/user/register"
       - "/imsi"
       - "/ws"
+      - "/oauth/**"
+      - "/test/**"
 
 jwt:
   # http 请求头 key 值
@@ -144,3 +146,11 @@ log:
 
 socket:
   port: 2599
+
+justauth:
+  enabled: true
+  type:
+    wechat:
+      client-id: wx26088f905bd49498
+      client-secret: 2b55cc6127242964981f074c17f922c0
+      redirect-uri: /oauth/wechat/callback

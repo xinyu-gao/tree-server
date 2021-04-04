@@ -2,6 +2,7 @@ package com.suda.tree.service;
 
 import com.suda.tree.dto.result.PageResult;
 import com.suda.tree.entity.mysql.User;
+import me.zhyd.oauth.model.AuthResponse;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,8 @@ public interface UserService {
     boolean updateUserRoles(User user);
 
     String login(String username, String password);
+
+    String loginByAlipayRegister(AuthResponse authResponse);
 
     String loginForEmail(String Email, String validateCode);
 

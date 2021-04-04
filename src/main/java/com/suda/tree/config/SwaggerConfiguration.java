@@ -11,7 +11,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Swagger2API文档的配置 http://localhost:8080/swagger-ui.html
+ * Swagger2 API 文档的配置 http://localhost:端口号/doc.html
  */
 @Configuration
 @EnableSwagger2

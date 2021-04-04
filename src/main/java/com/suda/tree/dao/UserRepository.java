@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
 
     User findUserByUsername(String username);
 
@@ -45,4 +45,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Transactional
     @Query(nativeQuery = true, value = "delete from user where username = :username")
     int deleteByUsername(@Param("username") String username);
+
+    User findUserByUserId(String userId);
 }

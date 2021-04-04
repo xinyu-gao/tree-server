@@ -1,9 +1,12 @@
 package com.suda.tree.service.impl;
 
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.RandomUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.suda.tree.dao.UserRepository;
 import com.suda.tree.dto.result.PageResult;
 import com.suda.tree.entity.AdminUserDetails;
-import com.suda.tree.entity.mysql.TreeInfo;
 import com.suda.tree.entity.mysql.User;
 import com.suda.tree.exception.CacheException;
 import com.suda.tree.service.RedisService;
@@ -11,7 +14,10 @@ import com.suda.tree.service.UserService;
 import com.suda.tree.service.ValidateCodeService;
 import com.suda.tree.util.JwtTokenUtil;
 import com.suda.tree.util.PageUtil;
+import com.suda.tree.util.TransferUtil;
 import lombok.extern.slf4j.Slf4j;
+import me.zhyd.oauth.model.AuthResponse;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -29,6 +35,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -87,6 +94,9 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findUserByUsername(user.getUsername()) == null) {
             String encodePassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encodePassword);
+            if(user.getUserId() == null) {
+                user.setUserId(IdUtil.simpleUUID());
+            }
             userRepository.save(user);
             return true;
         } else {
@@ -129,6 +139,26 @@ public class UserServiceImpl implements UserService {
                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
         return jwtTokenUtil.generateToken(userDetails);
+    }
+
+    @Override
+    public String loginByAlipayRegister(AuthResponse authResponse) {
+        if (authResponse.getCode() == 2000) {
+            // 若没有该账户，则注册
+            String userId = TransferUtil.getUserIdFromAuth(authResponse);
+             if (userRepository.findUserByUserId(userId) == null) {
+                 // 默认生成随机密码，和 user 角色
+                User user = TransferUtil.alipayAuthToSysUser(authResponse);
+                saveUser(user);
+            }
+            UserDetails userDetails = userDetailsService.loadUserByUsername(TransferUtil.getUsernameFromAuth(authResponse));
+            UsernamePasswordAuthenticationToken auth =
+                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(auth);
+            return jwtTokenUtil.generateToken(userDetails);
+        }else{
+           throw new BadCredentialsException("支付宝授权登录失败");
+        }
     }
 
     @Override
@@ -207,7 +237,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public PageResult<User> getUserListSorted(int page, int size, String[] keys, int asc) {
         List<Sort.Order> sorts = new ArrayList<>();
-        for(String i : keys){
+        for (String i : keys) {
             sorts.add(new Sort.Order(asc == 1 ? Sort.Direction.ASC : Sort.Direction.DESC, i));
         }
         Pageable pageable = PageRequest.of(page, size, Sort.by(sorts));
@@ -226,4 +256,6 @@ public class UserServiceImpl implements UserService {
     public boolean deleteUser(String username) {
         return userRepository.deleteByUsername(username) == 1;
     }
+
+
 }

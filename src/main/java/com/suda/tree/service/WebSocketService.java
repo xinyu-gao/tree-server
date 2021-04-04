@@ -1,18 +1,21 @@
 package com.suda.tree.service;
 
+import cn.hutool.json.JSONUtil;
+import com.suda.tree.dto.WebSocketParam;
+import com.suda.tree.dto.result.HttpResult;
 import com.suda.tree.entity.WebSocketLogInfo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
+import org.apache.kafka.common.utils.CopyOnWriteMap;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.socket.server.standard.SpringConfigurator;
 
 import javax.websocket.*;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
@@ -24,15 +27,17 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @Slf4j
 @Service
 @Data
-@ServerEndpoint("/ws")
+@ServerEndpoint(value = "/oauth/{userId}")
 public class WebSocketService {
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+    private String userId;
+
     /**
      * concurrent 包的线程安全 Set，用来存放每个客户端对应的 WebSocket 对象。
      */
-    private final CopyOnWriteArraySet<WebSocketService> webSocketSet = new CopyOnWriteArraySet<>();
+    private final static CopyOnWriteMap<String, WebSocketService> webSocketMap = new CopyOnWriteMap<>();
 
     /**
      * 与某个客户端的连接会话，需要通过它来给客户端发送数据
@@ -43,11 +48,13 @@ public class WebSocketService {
      * 连接建立成功调用的方法
      */
     @OnOpen
-    public void onOpen(Session session) throws IOException, EncodeException {
+    public void onOpen(@PathParam("userId") String userId, Session session) throws IOException, EncodeException {
+        session.setMaxIdleTimeout(1000000);
         this.session = session;
-        webSocketSet.add(this);
-        log.info(WebSocketLogInfo.buildAndToString(session.getId(), authentication,"websocket连接"));
-        sendInfoForOne("连接成功");
+        webSocketMap.put(userId, this);
+        this.userId = userId;
+        log.info(WebSocketLogInfo.buildAndToString(this.userId, authentication, "websocket连接"));
+        sendInfoForOne(session.getId());
     }
 
     /**
@@ -55,8 +62,8 @@ public class WebSocketService {
      */
     @OnClose
     public void onClose() {
-        webSocketSet.remove(this);
-        log.info(WebSocketLogInfo.buildAndToString(session.getId(), authentication,"websocket关闭连接"));
+        webSocketMap.remove(this.userId);
+        log.info(WebSocketLogInfo.buildAndToString(this.userId, authentication, "websocket关闭连接"));
     }
 
     /**
@@ -66,8 +73,8 @@ public class WebSocketService {
      */
     @OnMessage
     public void onMessage(String message) throws IOException, EncodeException {
-        log.info(WebSocketLogInfo.buildAndToString(session.getId(), authentication,"收到消息："+  message));
-        sendInfoForOne("hello");
+        log.info(WebSocketLogInfo.buildAndToString(this.userId, authentication, "收到消息：" + message));
+        sendInfoForOne(JSONUtil.toJsonStr(WebSocketParam.success("登录", "hello")));
     }
 
     /**
@@ -76,7 +83,7 @@ public class WebSocketService {
      */
     @OnError
     public void onError(Session session, Throwable error) {
-        log.info(WebSocketLogInfo.buildAndToString(session.getId(), authentication,"发生错误"));
+        log.info(WebSocketLogInfo.buildAndToString(session.getId(), authentication, "发生错误"));
         error.printStackTrace();
     }
 
@@ -91,6 +98,12 @@ public class WebSocketService {
         this.session.getBasicRemote().sendText(message);
     }
 
+    public static void sendInfoForOne(String wsId, String message) throws IOException, EncodeException {
+        log.info(message);
+        webSocketMap.get(wsId).session.getBasicRemote().sendText(message);
+
+    }
+
     /**
      * 实现服务器主动群发消息
      *
@@ -98,10 +111,10 @@ public class WebSocketService {
      * @throws IOException     发送失败
      * @throws EncodeException Object 转 JSON 失败
      */
-    public void sendInfoForAll(String message) throws IOException, EncodeException {
+    public static void sendInfoForAll(String message) throws IOException, EncodeException {
         log.info("websocket群发消息，消息：" + message);
-        for (WebSocketService item : webSocketSet) {
-            item.sendInfoForOne(message);
+        for (WebSocketService item : webSocketMap.values()) {
+            item.session.getBasicRemote().sendText(message);
         }
     }
 

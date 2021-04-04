@@ -67,7 +67,7 @@ public class ImsiController {
         ImsiInfoHistory imsiInfoHistory = TransferUtil.NodeParamToImsiInfoHistory(node);
         imsiInfoRepository.save(imsiInfo);
         imsiInfoHistoryRepository.save(imsiInfoHistory);
-        webSocketService.sendInfoForAll("数据更新");
+        WebSocketService.sendInfoForAll("数据更新");
         return HttpResult.success(node.toString());
     }
 
@@ -78,7 +78,7 @@ public class ImsiController {
         imsiDetectInfoService.saveImsiDetectInfo(node);
         imsiDetectInfoService.saveImsiDetectHInfoHistory(
                 new ImsiDetectInfoHistory(node.getImsi(), node.getData()));
-        webSocketService.sendInfoForAll("数据更新");
+        WebSocketService.sendInfoForAll("数据更新");
         return HttpResult.success(node);
     }
 
