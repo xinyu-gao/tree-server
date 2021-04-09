@@ -14,9 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @RestController
@@ -104,4 +102,11 @@ public class UserController {
         return HttpResult.success(userService.findByUsername(username));
     }
 
+    @ApiOperation("有条件查询用户")
+    @GetMapping("/condition")
+    public HttpResult getUserBySearch(@RequestParam("condition") String condition,
+                                      @RequestParam("value") String value) throws Exception {
+        List<User> result = userService.getUserListBySearch(condition, value);
+        return HttpResult.success(result);
+    }
 }

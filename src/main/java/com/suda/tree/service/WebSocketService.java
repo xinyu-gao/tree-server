@@ -54,7 +54,7 @@ public class WebSocketService {
         webSocketMap.put(userId, this);
         this.userId = userId;
         log.info(WebSocketLogInfo.buildAndToString(this.userId, authentication, "websocket连接"));
-        sendInfoForOne(session.getId());
+        sendInfoForOne(userId);
     }
 
     /**

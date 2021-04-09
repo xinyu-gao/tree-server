@@ -123,7 +123,7 @@ public class TreeInfoServiceImpl implements TreeInfoService {
 
     @Override
     public List<TreeInfo> getInfosFuzzyQuery(String data) {
-        return treeInfoRepository.findTreeInfoByTreeIdLikeOrChineseNameLikeOrAliasLikeOrLatinNameLike(data,data,data,data);
+        return treeInfoRepository.findTreeInfoByTreeIdContainingOrChineseNameContainingOrAliasContainingOrLatinNameContaining(data,data,data,data);
     }
 
 

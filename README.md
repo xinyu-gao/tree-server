@@ -60,15 +60,15 @@ password: ****
 #### Redis
 
 ```yml
-  redis:
-    # Redis服务器地址
-    host: ****
-    # Redis数据库索引（默认为0）
-    database: 0
-    # Redis服务器连接端口
-    port: 6379
-    # Redis服务器连接密码（默认为空）
-    password:
+redis:
+  # Redis服务器地址
+  host: ****
+  # Redis数据库索引（默认为0）
+  database: 0
+  # Redis服务器连接端口
+  port: 6379
+  # Redis服务器连接密码（默认为空）
+  password:
 ```
 
 #### Minio
@@ -91,17 +91,17 @@ minio:
 
 ```yml
 mail:
-# 采用 163 的邮箱
-host: smtp.163.com
-# 邮箱账号
-username: ****
-# 邮箱授权密码（不是邮箱密码，是“授权密码”）
-password: ****
+  # 采用 163 的邮箱
+  host: smtp.163.com
+  # 邮箱账号
+  username: ****
+  # 邮箱授权密码（不是邮箱密码，是“授权密码”）
+  password: ****
 ```
 
 ### 部分项目文件解释
 
-#### 1. 配置文件 application-*.yml
+#### 1. 配置文件 application-*.yml		
 
 `*` 位置是环境，此项目包含 dev 和 prod 环境，当运行程序时，可以根据指定的环境切换配置文件。
 
@@ -109,7 +109,7 @@ IDEA 中 Edit Configurations(右上角运行键旁边的下拉框) -> Program ar
 
 运行 jar 包时，`--spring.profiles.active=prod`，（参考 Dockerfile 文件）
 
-注意，配置文件内容中的空格，只能是两个空格，多了少了都不行。
+注意，配置文件内容中的空格，只能是两个空格，多了少了都不行。冒号后面必须要有一个空格。
 
 #### 2. 日志管理文件 logback-spring.xml
 
@@ -123,7 +123,7 @@ IDEA 中 Edit Configurations(右上角运行键旁边的下拉框) -> Program ar
 
 项目的入口文件，启动文件，可以直接运行这个文件启动项目（方式之一，还可以用 maven 启动）
 
-@SpringBootApplication 注解为三合一注解，意义自行查看，无需修改。
+`@SpringBootApplication` 注解为三合一注解，意义自行查看，无需修改。
 
 其他层文件应在启动文件所在目录相同，或者所在目录的子目录，否则 Spring 将无法扫描文件。
 
@@ -136,7 +136,7 @@ IDEA 中 Edit Configurations(右上角运行键旁边的下拉框) -> Program ar
 类上面的 `@RequestMapping` 为此类的路由，方法上面的 `@GetMapping` 等为此方法的路由，
 方法的路由等于类的路由加上方法的路由。
 
-@GetMapping 只接受 Get 方式请求，@PostMapping只接受 POST 方式请求，@RequestMapping 任意方式。
+`@GetMapping` 只接受 Get 方式请求，`@PostMapping` 只接受 POST 方式请求，`@RequestMapping` 任意方式。
 
 返回值，为了统一标准，进行了封装，封装代码参考 /dto/result/HttpResult
 
@@ -175,9 +175,11 @@ pom.xml 中要导入依赖包，而且 IDEA 中也要下载插件。
 
 swagger ui 的加强版。自动生成接口文档，根据注解生成接口说明。
 
-查看：http://localhost:2399/doc.html#/home（不要忘记换 ip 地址和端口号）
+查看：http://localhost:2399/doc.html#/home
 
-配置文件详情查看：config/SwaggerConfiguration.java
+注意：不要忘记换 ip 地址和端口号
+
+配置文件详情查看：`config / SwaggerConfiguration.java`
 
 #### 4. 
 

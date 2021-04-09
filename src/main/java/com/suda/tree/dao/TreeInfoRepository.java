@@ -32,7 +32,7 @@ public interface TreeInfoRepository extends JpaRepository<TreeInfo, String> {
 
     List<TreeInfo> findTreeInfoByLocationProvinceContainingOrLocationCityContaining(String province, String city);
 
-    List<TreeInfo> findTreeInfoByTreeIdLikeOrChineseNameLikeOrAliasLikeOrLatinNameLike(String treeId, String chineseName, String alias, String latinName);
+    List<TreeInfo> findTreeInfoByTreeIdContainingOrChineseNameContainingOrAliasContainingOrLatinNameContaining(String treeId, String chineseName, String alias, String latinName);
 
     @Query(nativeQuery = true, value ="SELECT location_province, location_city, count(tree_id) FROM `tree_info` group by location_province, location_city")
     List<Object[]> getProvinceAndCityTreeCount();

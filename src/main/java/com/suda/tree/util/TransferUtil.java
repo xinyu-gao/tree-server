@@ -57,7 +57,7 @@ public class TransferUtil {
         return user;
     }
 
-    public static String getUserIdFromAuth(AuthResponse authResponse) {
+    public static String getUuidFromAuth(AuthResponse authResponse) {
         JSONObject s = JSONUtil.parseObj(authResponse.getData());
         return s.getStr("uuid");
     }

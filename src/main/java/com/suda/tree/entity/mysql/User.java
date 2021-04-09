@@ -18,7 +18,15 @@ import javax.persistence.*;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "user")
+@Table(
+        name = "user",
+        uniqueConstraints = @UniqueConstraint(columnNames = "user_id"),
+        indexes = {
+                @Index(columnList = "username", unique = true),
+                @Index(columnList = "email"),
+                @Index(columnList = "phone_number"),
+        }
+)
 public class User implements Serializable {
 
     @Id
@@ -55,6 +63,9 @@ public class User implements Serializable {
     @Column(name = "roles", columnDefinition = "TEXT")
     @Convert(converter = JpaConverterListJson.class)
     private List<String> roles;
+
+    @Column(name = "ali_uuid")
+    private String aliUuid;
 
     public User(String username) {
         this.username = username;

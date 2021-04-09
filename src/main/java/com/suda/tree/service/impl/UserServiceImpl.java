@@ -1,10 +1,9 @@
 package com.suda.tree.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.RandomUtil;
-import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.suda.tree.dao.UserRepository;
+import com.suda.tree.dto.WebSocketParam;
 import com.suda.tree.dto.result.PageResult;
 import com.suda.tree.entity.AdminUserDetails;
 import com.suda.tree.entity.mysql.User;
@@ -12,12 +11,12 @@ import com.suda.tree.exception.CacheException;
 import com.suda.tree.service.RedisService;
 import com.suda.tree.service.UserService;
 import com.suda.tree.service.ValidateCodeService;
+import com.suda.tree.service.WebSocketService;
 import com.suda.tree.util.JwtTokenUtil;
 import com.suda.tree.util.PageUtil;
 import com.suda.tree.util.TransferUtil;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.model.AuthResponse;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -35,8 +34,9 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findUserByUsername(user.getUsername()) == null) {
             String encodePassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encodePassword);
-            if(user.getUserId() == null) {
+            if (user.getUserId() == null) {
                 user.setUserId(IdUtil.simpleUUID());
             }
             userRepository.save(user);
@@ -145,19 +145,32 @@ public class UserServiceImpl implements UserService {
     public String loginByAlipayRegister(AuthResponse authResponse) {
         if (authResponse.getCode() == 2000) {
             // 若没有该账户，则注册
-            String userId = TransferUtil.getUserIdFromAuth(authResponse);
-             if (userRepository.findUserByUserId(userId) == null) {
-                 // 默认生成随机密码，和 user 角色
+            String aliUuid = TransferUtil.getUuidFromAuth(authResponse);
+            if (userRepository.findUserByAliUuid(aliUuid) == null) {
+                // 默认生成随机密码，和 user 角色
+                // 如果提升权限需要申请批准，且需要提醒用户今早修改密码
                 User user = TransferUtil.alipayAuthToSysUser(authResponse);
                 saveUser(user);
             }
-            UserDetails userDetails = userDetailsService.loadUserByUsername(TransferUtil.getUsernameFromAuth(authResponse));
+
+            UserDetails userDetails =
+                    userDetailsService.loadUserByUsername(TransferUtil.getUsernameFromAuth(authResponse));
+
             UsernamePasswordAuthenticationToken auth =
                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
-            return jwtTokenUtil.generateToken(userDetails);
-        }else{
-           throw new BadCredentialsException("支付宝授权登录失败");
+            String token = jwtTokenUtil.generateToken(userDetails);
+
+            Map<String, String> tokenMap = new HashMap<>();
+            tokenMap.put("token", token);
+            tokenMap.put("tokenHead", tokenHead);
+            tokenMap.put("userId", userRepository.findUserByAliUuid(aliUuid).getUserId());
+            tokenMap.put("username", userDetails.getUsername());
+
+            return JSONUtil.toJsonStr((WebSocketParam.success("登录", tokenMap)));
+
+        } else {
+            throw new BadCredentialsException("支付宝授权登录失败");
         }
     }
 
@@ -250,6 +263,25 @@ public class UserServiceImpl implements UserService {
         Pageable pageable = PageRequest.of(page, size);
         Page<User> users = userRepository.findAll(pageable);
         return PageUtil.setResult(users);
+    }
+
+    @Override
+    public List<User> getUserListBySearch(String searchField, String value) throws Exception {
+        List<User> result;
+        switch (searchField) {
+            case "username":
+                result = userRepository.findUserByUsernameContaining(value);
+                break;
+            case "email":
+                result = userRepository.findUserByEmailContaining(value);
+                break;
+            case "phoneNumber":
+                result = userRepository.findUserByPhoneNumberContaining(value);
+                break;
+            default :
+                throw new Exception("field name is not valid");
+        }
+        return result;
     }
 
     @Override

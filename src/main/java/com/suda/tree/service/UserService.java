@@ -44,5 +44,7 @@ public interface UserService {
 
     PageResult<User> getUserList(int page, int size);
 
+    List<User> getUserListBySearch(String searchField, String value) throws Exception;
+
     boolean deleteUser(String username);
 }
