@@ -106,11 +106,11 @@
         </dependency>
 
         <!-- 日志系统 -->
-        <dependency>
-            <groupId>net.logstash.logback</groupId>
-            <artifactId>logstash-logback-encoder</artifactId>
-            <version>5.3</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>net.logstash.logback</groupId>-->
+<!--            <artifactId>logstash-logback-encoder</artifactId>-->
+<!--            <version>5.3</version>-->
+<!--        </dependency>-->
 
         <!-- 发送邮件 -->
         <dependency>
@@ -153,22 +153,18 @@
         </dependency>
 
         <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
-            <version>4.1.42.Final</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.75</version>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-            <version>2.6.6</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+            <version>2.4.4</version>
         </dependency>
+
+
 
 
 

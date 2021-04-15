@@ -45,11 +45,34 @@ Maven 3.6.3: https://maven.apache.org/download.cgi
 
 双击 package，打包项目，在 target 目录下生成 jar 文件，后续会介绍怎么使用。
 
+#### Docker 安装（可选）
+
+Docker 安装教程：https://yeasy.gitbook.io/docker_practice/install/ubuntu
+
+记得更换 Docker 源，否则下载速度会很慢，执行以下命令。
+
+```bash
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+"registry-mirrors": ["阿里云镜像加速地址，下面地址获取"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+阿里云镜像加速地址获取： https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors
+
 #### MySQL
 
-安装：
+安装（Docker 方式）：
 
-在 application-*.yml 文件中修改 mysql 的地址、数据库、用户名和密码：
+可视化客户端：**Navicat Premium / Navicat for mysql**（付费）
+
+前者可以连接除 MySQL 外更多的数据库，如 MongoDB、Oracle、SQL Server 等。
+
+在 application-*.yml 文件中修改 mysql 的 IP 地址、数据库、用户名和密码：
 
 ```yml
 url: jdbc:mysql://IP地址:3306/数据库名?serverTimezone=GMT%2B8
@@ -58,6 +81,26 @@ password: ****
 ```
 
 #### Redis
+
+安装（Docker 方式）：
+
+```bash
+docker pull redis:latest
+```
+
+```bash
+docker run -p 6379:6379 --name redis \
+-v /mydata/redis/data:/data \
+-d --restart=always \
+redis:latest redis-server --appendonly yes \
+--requirepass "tree123456"
+```
+
+可视化客户端：**Another Redis Desktop Manager**（开源免费）
+
+下载地址：https://github.com/qishibo/AnotherRedisDesktopManager
+
+修改 Spring Boot 的 yml 配置文件：
 
 ```yml
 redis:
@@ -150,6 +193,7 @@ IDEA 中 Edit Configurations(右上角运行键旁边的下拉框) -> Program ar
 
 这样在 Controller 层，就可以使用自动注入了，而不是使用 new 的方式来生成对象。
 例如：
+
 ```java
 @Autowired
 private UserService userService;
@@ -187,9 +231,7 @@ swagger ui 的加强版。自动生成接口文档，根据注解生成接口说
 
 ### 部署
 
-#### 1. Docker 方式部署
-
-Docker 安装教程：https://yeasy.gitbook.io/docker_practice/install/ubuntu
+#### 1. Docker 方式部署（推荐）
 
 将 mvn package 生成的 jar 文件和项目根目录下的 Dockerfile 文件放在服务器的一个目录下
 
@@ -208,6 +250,29 @@ docker build -t tree/server:0.0.1 .
 docker run -p 2399:2399 --name tree-server \
  -d tree/server:0.0.1
 ```
+
+#### 2. 直接运行 jar
+
+服务器安装 Java 11 以上环境。
+
+将 jar 文件上传到服务器，后台运行：
+
+```bash
+nohup java -jar xx.jar &
+```
+
+停止服务（2399 改为自己的端口号, [pid] 为查询出来占用 2399 的进程号)
+
+```bash
+sudo lsof -i:2399
+sudo kill [pid] 
+```
+
+这种方法相对于第一种方法的缺点：
+
+- 需要单独配置 Java 环境
+  
+- 服务管理起来比较麻烦
 
 
 ### 第三方登录

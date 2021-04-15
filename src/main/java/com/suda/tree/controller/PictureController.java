@@ -27,8 +27,8 @@ public class PictureController {
     @ApiOperation("树木图片上传")
     @PostMapping()
     public HttpResult upload(@RequestParam("tree_id") String treeId,
-                             @RequestParam("file") MultipartFile file,
-                             @RequestParam("username") String username) throws Exception {
+                             @RequestParam("username") String username,
+                             @RequestBody MultipartFile file) throws Exception {
         treePicService.upsert(treeId, file, username);
         return HttpResult.success();
     }
@@ -47,7 +47,7 @@ public class PictureController {
     @ApiOperation("树木图片删除")
     @DeleteMapping()
     public HttpResult delete(@RequestParam("tree_id") String treeId,
-                             @RequestParam("fileNameName") String fileName,
+                             @RequestParam("file_name") String fileName,
                              @RequestParam("username") String username) throws Exception {
         treePicService.delete(treeId, fileName, username);
         return HttpResult.success();

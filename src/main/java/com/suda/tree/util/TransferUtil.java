@@ -1,6 +1,5 @@
 package com.suda.tree.util;
 
-import ch.qos.logback.core.encoder.EchoEncoder;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONObject;

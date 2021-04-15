@@ -1,62 +1,45 @@
 server:
-  # 项目端口号
-  port: 2399
+  port: 2399 # 项目端口号
 
 spring:
   datasource:
-    # MySQL 连接配置， 5.0 为 com.mysql.jdbc.Driver
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver # MySQL 连接驱动， 5.0 为 com.mysql.jdbc.Driver
     url: jdbc:mysql://175.24.147.229:3306/tree?serverTimezone=GMT%2B8
     username: root
     password: 123456tree
 
     type: com.alibaba.druid.pool.DruidDataSource
     # 数据源其他配置
-    # 初始化时建立物理连接的个数
-    initial-size: 5
-    # 最小连接池数量
-    min-idle: 2
-    # 最大连接池数量 maxIdle已经不再使用
-    max-active: 20
-    # 获取连接时最大等待时间，单位毫秒
-    max-wait: 60000
-    # 申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+    initial-size: 5 # 初始化时建立物理连接的个数
+    min-idle: 2 # 最小连接池数量
+    max-active: 20 # 最大连接池数量 maxIdle已经不再使用
+    max-wait: 60000 # 获取连接时最大等待时间，单位毫秒
     test-while-idle: true
-    # 既作为检测的间隔时间又作为 testWhileIdel 执行的依据
     time-between-eviction-runs-millis: 60000
-    # 销毁线程时检测当前连接的最后活动时间和当前时间差大于该值时，关闭当前连接
-    min-evictable-idle-time-millis: 30000
-    # 用来检测连接是否有效的sql 必须是一个查询语句
-    # mysql中为 select 'x'
-    validation-query: select 'x'
-    # 申请连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true
-    test-on-borrow: false
-    # 归还连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true
-    test-on-return: false
-    # 是否缓存preparedStatement
-    pool-prepared-statements: true
+    min-evictable-idle-time-millis: 30000 # 销毁线程时检测当前连接的最后活动时间和当前时间差大于该值时，关闭当前连接
+    validation-query: select 'x' # 用来检测连接是否有效的sql 必须是一个查询语句
+    test-on-borrow: false  # 申请连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true
+    test-on-return: false # 归还连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true
+    pool-prepared-statements: true # 是否缓存preparedStatement
     # 配置监控统计拦截的 filters，去掉后监控界面 sql 无法统计，'wall' 用于防火墙
     # 配置监拉统计挡成的 filters. stat: 监控统计、Log4j:日志记录、waLL: 防御sqL注入
     filters: stat,wall,1og4j
     max-pool-prepared-statement-per-connection-size: 20
     use-global-data-source-stat: true
     connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-  jpa:
-    # 是否打印 sql 语句
-    show-sql: true
-    # 数据库引擎 InnoDB
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    # 自动更新表结构
-    hibernate:
-      ddl-auto: update
 
+  # spring data jpa 配置
+  jpa:
+    show-sql: true  # 是否打印 sql 语句
+    database-platform: org.hibernate.dialect.MySQL8Dialect # 数据库引擎 InnoDB
+    hibernate:
+      ddl-auto: update  # 自动更新表结构
+
+  # 邮箱配置
   mail:
-    # 采用 163 的邮箱
-    host: smtp.163.com
-    # 邮箱账号
-    username: isgaoxy@163.com
-    # 邮箱授权密码
-    password: WRSREHPSHPMOXCWM
+    host: smtp.163.com # 采用 163 的邮箱
+    username: isgaoxy@163.com # 邮箱账号
+    password: WRSREHPSHPMOXCWM   # 邮箱授权密码（不是密码，是授权密码）
     properties.mail.smtp:
       auth: true
       starttls:
@@ -67,49 +50,34 @@ spring:
 
   servlet:
     multipart:
-      # 开启文件上传
-      enabled: true
-      # 限制文件上传大小
-      max-file-size: 10MB
+      enabled: true # 开启文件上传
+      max-file-size: 10MB  # 限制文件上传大小
+
+  # Redis 配置
   redis:
-    # Redis服务器地址
-    host: 175.24.147.229
-    # Redis数据库索引（默认为0）
-    database: 0
-    # Redis服务器连接端口
-    port: 6379
-    # Redis服务器连接密码（默认为空）
-    password:
-    # 连接超时时间
-    timeout: 1000ms
+    host: 175.24.147.229 # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password:  # Redis服务器连接密码（默认为空）
+    timeout: 1000ms   # 连接超时时间
     lettuce:
       pool:
-        # 连接池最大连接数
-        max-active: 8
-        # 连接池最大空闲连接数
-        max-idle: 8
-        # 连接池最小空闲连接数
-        min-idle: 1
-        # 连接池最大阻塞等待时间，负值表示没有限制
-        max-wait: -1ms
+        max-active: 8  # 连接池最大连接数
+        max-idle: 8  # 连接池最大空闲连接数
+        min-idle: 1  # 连接池最小空闲连接数
+        max-wait: -1ms  # 连接池最大阻塞等待时间，负值表示没有限制
 
 minio:
-  # minio 服务器地址
-  endpoint: 175.24.147.229
-  # minio 服务器端口号
-  port: 9090
-  # minio 账号名
-  access-key: minioadmin
-  # minio 密码
-  secret-key: minioadmin
-  # 存储桶的名字
-  bucket: tree
+  endpoint: 175.24.147.229 # minio 服务器地址
+  port: 9090 # minio 服务器端口号
+  access-key: minioadmin # minio 账号名
+  secret-key: minioadmin # minio 密码
+  bucket: tree # 存储桶的名字
   secure: false
 
 secure:
   ignored:
-    # 安全框架忽略的路由
-    urls:
+    urls: # 安全框架忽略的路由
       - /
       - /swagger-ui/
       - /*.html
@@ -127,29 +95,33 @@ secure:
       - "/test/**"
 
 jwt:
-  # http 请求头 key 值
-  tokenHeader: Authorization
-  # token 的开头标识
-  tokenHead: Bearer
-  # 密钥
-  secret: tree
-  # 有效期(s)
-  expiration: 5184000
-  # redis 中 token 黑名单的 key 值
-  blacklist: blacklist
+  tokenHeader: Authorization  # http 请求头 key 值
+  tokenHead: Bearer # token 的开头标识
+  secret: tree # 密钥
+  expiration: 5184000 # token 有效期(s)
+  blacklist: blacklist # redis 中 token 黑名单的 key 值
 
-
-log:
-  host: 175.24.147.229
-  level:
-    root: INFO
+# 日志配置
+logging:
+  file:
+    path: "./logs/" # 日志存放目录
+    level: info     # 控制台打印的最低日志级别
 
 socket:
   port: 2599
 
+# justAuth 配置
 oauth:
   alipay:
     client-id: 2021002135688012
     client-secret: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCP55D69pTzSZFhJnf89qdgvEsDqw7arZg9llCchqZ1czM4bicEnmPMFmJmp7WIlFsA9NzpAKE7Vdy1dRUo2FmMJ24ThNk9qSNbAKzwtDemhVVk/dImeVW7mHqs9ca91ReNL7fuJ4zu6FLTT7fblpZAZKyyubJMXXY1x72xFxE2XuOjEktgiP6qodUQxJHuPyh3yxG/l3x4ZmcTZI5tR1PExA0qVQK+e6c4j6e/8cJHVjx0u9N+dTqGJZOc12E/yUWTvmtJRbdxW7BUnBecbhRv8FkqBd6LD5DxeGJvDJ7sIWywYVddCXxNnogP2EFQCPjq4/AExn9YHavKKv8I7G+XAgMBAAECggEAb4lgSeRNVrQyxkX2wk67NLM8wT8YaE4crb+QA4IqCuabUKWwAFhzqX/ADSj3/0BduMQRZVdjoIXQZ6S0HdByt7roCqDxcGVkTeicIoTMjXjS01AYTlHFLX3lt6FXxVMgygGuYhytk47mg3pKWxzAoHBnmq9rjtzx/oUuddAXOzfpEY7FTn9Fb55AZzG3Cgi9L8rMx33fg9L8r/h3lvUn5cn9y8Wlj9RukeQIjIcZJraylv83do5p1K8n7wTcYBnheJnnY66jO/XLr8QMB1/VgvNa8C3tyuB5kVktN/9VQxruOPJAJVq9tRZy1/Wlp0HPlghDowAVuuwUrT3aEa1RAQKBgQDrmrFgNDOvSAtttJko0PKbtGLBDGc94AU4A3A0BeN2s3/UiG9ZKYvJhwlDTnsIhKFKb8GYgyrS+rcr5J0e66LkamJLqA+nQUBYMLdeZCjN475duknHKqQYoeYUB8/c1zELOoiWGlAUUbVoqR7edPxU3UnRiv8+BeENSgo9nrL/twKBgQCcXK9DM5FDdN+UwD+owgUXAvLtFRubTFjgL2WWvivOlBG0ZnNqDZlfGlvx+ioINeWAg+4fX/nJUhgKZHFGt/IzL7aOo0HXcnxFWBYsu/NIwEgq9CfAPr4j2vUnRMM2d8xPN42ECh+JaJuH36LCcgX5WND2pSRTbdh4jfG/gJBPIQKBgH/HrlvW9BEkqc4eHNMeP/Zipwy8hWHxleMDOl98shk20SWbuYhKGB58tnFipye/hxqv8fedbCRxBdcwbmbOtdHcQON3isXThepOwaTX/als01pSJqF2ZvlVFUvX0MydiWPlox6FttjOV+0jjDJqkFAWlGqpUDV7SsvCVDuHTt2RAoGBAJE4V6JfS2POMTTTFIyknduQZpQgjYI/dy/HdV96ge8bgBH/MOPne3FjZs+nGtCDVgJ1BXxoQ/JhZ2iHftlCUBSQFMoHAEib0KUKuZWUfdAsnRofpqea3jcozZVJ/NAilUNhgfKHAGE7IXAhGOXkxn2dqn3YRJOjqm/UzRihy+VhAoGAATyJmyzcOYqYL8rcX3rnlMrbW6PCpJDuMq9yu75eClm8GCZ1gezfu5J8CGnJ4uMa+mYHZVOpYIDj2KaMK58P9lkLBonyCZm5cVuM3SDd+kY091uFhIM2+fkJ+ggYQKZAYdTyZZj1kcQu6+CBi1B2b5eTLeZ0xZXm2/XDMpW7SpE=
     public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhIl9tqsPWNpzh22pyzu/2HeWWyPT6gafXWlRUiUTL4LCAADG1fdHF9hywS/Lc3W+D85qkAPYjrRzObe6Emi08OlCKH1OTnMNE1MxmwGqc04FDeWqpX6m3gUGa7j2fyINNCS2+BlRUvpwZsPWvVrpQWi7RfKVTVHrcylixpubLfztTVcv2Wh/j3jss1p46cS9uDHs5CcFrhajwRn+1XHEWa5/HbL0Z+rl9TANGNHttCuXwH0ZdDclnetRrcqsH0rBuoyyVbgpSjkN19cdzTuX1B7Eri3wmiG+JuZZzkKH5zAa6MFz9C5PNLs56A6sRGUiT/LzQrx9UBXWRP1ZCD7GTwIDAQAB
     callback-url: http://3d41214b2870.ngrok.io
+
+# es 配置
+data:
+  elasticsearch:
+    repositories:
+      enabled: true
+    cluster-nodes: 175.24.147.229:9300 # es的连接地址及端口号
+    cluster-name: elasticsearch # es集群的名称

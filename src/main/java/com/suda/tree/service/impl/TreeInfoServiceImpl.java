@@ -3,10 +3,7 @@ package com.suda.tree.service.impl;
 import com.suda.tree.dao.TreeInfoRepository;
 import com.suda.tree.dao.UploadHistoryRepository;
 import com.suda.tree.dto.result.PageResult;
-import com.suda.tree.entity.mysql.CityTreeCount;
-import com.suda.tree.entity.mysql.TreeGradeStatistic;
-import com.suda.tree.entity.mysql.TreeInfo;
-import com.suda.tree.entity.mysql.UploadHistory;
+import com.suda.tree.entity.mysql.*;
 import com.suda.tree.service.StatisticService;
 import com.suda.tree.service.TreeInfoService;
 import com.suda.tree.util.PageUtil;
@@ -124,6 +121,41 @@ public class TreeInfoServiceImpl implements TreeInfoService {
     @Override
     public List<TreeInfo> getInfosFuzzyQuery(String data) {
         return treeInfoRepository.findTreeInfoByTreeIdContainingOrChineseNameContainingOrAliasContainingOrLatinNameContaining(data,data,data,data);
+    }
+
+    @Override
+    public PageResult<TreeInfo> getTreeListBySearch(String searchField, String value, int page, int size) throws Exception {
+        Page<TreeInfo> result;
+        PageRequest pr = PageRequest.of(page, size);
+        switch (searchField) {
+            case "treeId":
+                result = treeInfoRepository.findTreeInfoByTreeIdContaining(value, pr);
+                break;
+            case "surveyNumber":
+                result = treeInfoRepository.findTreeInfoBySurveyNumberContaining(value, pr);
+                break;
+            case "chineseName":
+                result = treeInfoRepository.findTreeInfoByChineseNameContaining(value, pr);
+                break;
+            case "alias":
+                result = treeInfoRepository.findTreeInfoByAliasContaining(value, pr);
+                break;
+            case "latinName":
+                result = treeInfoRepository.findTreeInfoByLatinNameContaining(value, pr);
+                break;
+            case "family":
+                result = treeInfoRepository
+                        .findTreeInfoByFamilyContainingOrGenusContainingOrSpeciesContaining(value, value, value, pr);
+                break;
+            case "location":
+                result = treeInfoRepository
+                        .findTreeInfoByLocationProvinceContainingOrLocationCityContainingOrLocationDistrictContainingOrLocationDetailContaining
+                        (value, value, value, value, pr);
+                break;
+            default :
+                throw new Exception("field name is not valid");
+        }
+        return PageUtil.setResult(result);
     }
 
 

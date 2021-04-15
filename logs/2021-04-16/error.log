@@ -1,0 +1,3 @@
+2021-04-16 00:05:56 [http-nio-2399-exec-5] ERROR com.suda.tree.exception.GlobalException - [/tree/info]：Request method 'POST' not supported
+2021-04-16 00:06:50 [http-nio-2399-exec-8] ERROR com.suda.tree.exception.GlobalException - [/tree/info]：Request method 'PUT' not supported
+2021-04-16 01:45:33 [http-nio-2399-exec-7] ERROR com.suda.tree.exception.GlobalException - [/picture/tree]：该图片 URL 已存在

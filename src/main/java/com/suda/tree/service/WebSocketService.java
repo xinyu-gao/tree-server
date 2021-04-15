@@ -2,21 +2,18 @@ package com.suda.tree.service;
 
 import cn.hutool.json.JSONUtil;
 import com.suda.tree.dto.WebSocketParam;
-import com.suda.tree.dto.result.HttpResult;
 import com.suda.tree.entity.WebSocketLogInfo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.common.utils.CopyOnWriteMap;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.socket.server.standard.SpringConfigurator;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.HashMap;
 
 /**
  * @author xinyu
@@ -37,7 +34,7 @@ public class WebSocketService {
     /**
      * concurrent 包的线程安全 Set，用来存放每个客户端对应的 WebSocket 对象。
      */
-    private final static CopyOnWriteMap<String, WebSocketService> webSocketMap = new CopyOnWriteMap<>();
+    private final static HashMap<String, WebSocketService> webSocketMap = new HashMap<>();
 
     /**
      * 与某个客户端的连接会话，需要通过它来给客户端发送数据

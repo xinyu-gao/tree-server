@@ -1,6 +1,7 @@
 package com.suda.tree.service.impl;
 
 import com.suda.tree.dao.TreeGradeRepository;
+import com.suda.tree.dto.result.HttpResult;
 import com.suda.tree.entity.mysql.TreeGradeStatistic;
 import com.suda.tree.service.StatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
