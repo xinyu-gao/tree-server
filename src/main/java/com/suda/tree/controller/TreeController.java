@@ -26,6 +26,7 @@ public class TreeController {
     @Autowired
     private TreeInfoService treeInfoService;
 
+    @ApiOperation("根据树木编号获取该树木信息")
     @GetMapping("/info")
     public HttpResult getTreeInfo(@RequestParam("tree_id") String treeId){
         return HttpResult.success(treeInfoService.getTreeInfoByTreeId(treeId));
@@ -37,13 +38,13 @@ public class TreeController {
         return HttpResult.success(treeInfoService.getInfosFuzzyQuery(data));
     }
 
-
-
+    @ApiOperation("上传/修改树木信息，记录操作人")
     @PutMapping("/info")
     public HttpResult saveTreeInfo(@RequestBody TreeInfo treeInfo, @RequestParam("username") String username){
         return HttpResult.success(treeInfoService.saveTreeInfo(treeInfo, username));
     }
 
+    @ApiOperation("获取树木信息列表，分页查询")
     @GetMapping("/list")
     public HttpResult getTreeList(
             @RequestParam("page") int page,
@@ -52,6 +53,7 @@ public class TreeController {
         return HttpResult.success(treeInfoService.getTreeList(page, size, desc));
     }
 
+    @ApiOperation("获取树木信息列表，分页+排序")
     @GetMapping("/info_sorted")
     public HttpResult getTreeListSorted(
             @RequestParam("page") int page,
@@ -61,13 +63,15 @@ public class TreeController {
         return HttpResult.success(treeInfoService.getTreeListSorted(page, size, keys, asc));
     }
 
+    @ApiOperation("获取某个城市内拥有的树木信息列表")
     @GetMapping("/info/{city}")
     public HttpResult getTreeListByCity(@PathVariable("city") String city) {
         return HttpResult.success(treeInfoService.getTreeList(city));
     }
 
+    @ApiOperation("获取所有的树木信息列表")
     @GetMapping("/info/all")
-    public HttpResult getTreeListByCity() {
+    public HttpResult getTreeList() {
         return HttpResult.success(treeInfoService.getTreeListAll());
     }
 

@@ -29,7 +29,7 @@ public class TreePicServiceImpl implements TreePicService {
      * （如果 id 不存在则自动创建）
      */
     @Override
-    public void upsert(String id,  MultipartFile file, String username) throws Exception {
+    public void upsert(String id, MultipartFile file, String username) throws Exception {
         if (null == file.getOriginalFilename()) {
             throw new Exception("file 不能为空");
         }
@@ -54,7 +54,7 @@ public class TreePicServiceImpl implements TreePicService {
     }
 
     @Override
-    public List<String> getPicturesById(String treeId){
+    public List<String> getPicturesById(String treeId) {
         Optional<TreePicture> pictures = treePictureRepository.findByTreeId(treeId);
         return pictures.map(TreePicture::getPicUrls).orElse(null);
 
@@ -62,8 +62,7 @@ public class TreePicServiceImpl implements TreePicService {
 
 
     @Override
-    public void delete(String id, String fileName, String username) throws Exception {
-        String url = minioService.getFileURL(id, fileName);
+    public void deleteByFileURL(String id, String url, String username) throws Exception {
         Optional<TreePicture> treePictureOptional = treePictureRepository.findById(id);
         if (treePictureOptional.isPresent()) {
             TreePicture treePicture = treePictureOptional.get();
@@ -72,13 +71,18 @@ public class TreePicServiceImpl implements TreePicService {
                 throw new Exception("该图片 URL 已存在");
             }
             urls.remove(url);
-            minioService.delete(id, fileName);
+            minioService.delete(id, minioService.getFileNameFromURL(id, url));
             save(id, urls);
         } else {
             throw new Exception("id不存在");
         }
         UploadHistory uploadHistory = new UploadHistory(id, username, "删除图片");
         uploadHistoryRepository.save(uploadHistory);
+    }
+
+    @Override
+    public void deleteByFileName(String id, String fileName, String username) throws Exception {
+        deleteByFileURL(id, minioService.getFileURL(id, fileName), username);
     }
 
     private void save(String id, String picUrl) {

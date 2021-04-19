@@ -25,7 +25,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/test")
-    @ApiOperation("测试")
+    @ApiOperation("测试权限用")
     @PreAuthorize("hasAuthority('admin')")
     public HttpResult test() throws Exception {
         throw new Exception("dasd");

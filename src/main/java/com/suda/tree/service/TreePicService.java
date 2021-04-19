@@ -9,7 +9,9 @@ public interface TreePicService {
 
     void upsert(String id, MultipartFile file, String username) throws Exception;
 
-    void delete(String id, String fileName, String username) throws Exception;
+    void deleteByFileURL(String id, String fileName, String username) throws Exception;
+
+    void deleteByFileName(String id, String fileName, String username) throws Exception;
 
     List<String> getPicturesById(String treeId);
 }

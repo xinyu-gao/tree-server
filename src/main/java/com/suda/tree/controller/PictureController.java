@@ -38,18 +38,28 @@ public class PictureController {
     public HttpResult picture(@RequestParam("tree_id") String treeId) {
         return HttpResult.success(treePicService.getPicturesById(treeId));
     }
-    @ApiOperation("树木图")
+
+    @ApiOperation("树木图上传测试")
     @PostMapping("/s")
-    public HttpResult spicture(@RequestBody TreePicture o) {
+    public HttpResult pictureTest(@RequestBody TreePicture o) {
         return HttpResult.success(treePicRepository.save(o));
     }
 
-    @ApiOperation("树木图片删除")
+    @ApiOperation("树木图片删除,通过图片名删除")
     @DeleteMapping()
-    public HttpResult delete(@RequestParam("tree_id") String treeId,
+    public HttpResult deleteByFileName(@RequestParam("tree_id") String treeId,
                              @RequestParam("file_name") String fileName,
                              @RequestParam("username") String username) throws Exception {
-        treePicService.delete(treeId, fileName, username);
+        treePicService.deleteByFileName(treeId, fileName, username);
+        return HttpResult.success();
+    }
+
+    @ApiOperation("树木图片删除，通过文件URL删除")
+    @DeleteMapping()
+    public HttpResult deleteByFileURL(@RequestParam("tree_id") String treeId,
+                             @RequestParam("file_url") String fileURL,
+                             @RequestParam("username") String username) throws Exception {
+        treePicService.deleteByFileURL(treeId, fileURL, username);
         return HttpResult.success();
     }
 }

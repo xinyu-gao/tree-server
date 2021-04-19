@@ -1,6 +1,8 @@
 package com.suda.tree.service.impl;
 
 import java.time.LocalDate;
+
+import cn.hutool.core.util.StrUtil;
 import com.suda.tree.service.MinioService;
 import io.minio.*;
 import lombok.extern.slf4j.Slf4j;
@@ -78,12 +80,17 @@ public class MinioServiceImpl implements MinioService {
      * 返回图片网址，示例：http://175.24.147.229:9090/tree/1234/picture1.png
      */
     public String getFileURL(String id, String fileName) {
-        return "http://" + endpoint + ":" + port + "/" + bucketName + "/" + getObjectName(id, fileName);
+        return getURLPrefix() + getObjectName(id, fileName);
     }
 
     public String getFileURL(String id, MultipartFile file) {
-        return "http://" + endpoint + ":" + port + "/" + bucketName + "/" + getObjectName(id, file.getOriginalFilename());
+        return getURLPrefix() + getObjectName(id, file.getOriginalFilename());
     }
+
+    public String getFileNameFromURL(String id, String url) {
+        return StrUtil.removePrefix(url, getURLPrefix() + id);
+    }
+
 
     /**
      * 返回存储对象名，示例：1234/picture1.png
@@ -91,6 +98,11 @@ public class MinioServiceImpl implements MinioService {
     public String getObjectName(String id, String fileName) {
         return id + "/" + fileName;
     }
+
+    private String getURLPrefix() {
+        return "http://" + endpoint + ":" + port + "/" + bucketName + "/";
+    }
+
 
     /**
      * 判断桶是否存在

@@ -3,6 +3,7 @@ package com.suda.tree.controller;
 import com.suda.tree.dto.result.HttpResult;
 import com.suda.tree.entity.SmsCode;
 import com.suda.tree.service.ValidateCodeService;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ public class ValidateController {
     @Autowired
     private ValidateCodeService validateCodeService;
 
+    @ApiOperation("发送邮箱验证码")
     @GetMapping(value = "/email/code")
     public HttpResult getEmailValidateCode(@RequestParam("email") String Email) {
         String message = validateCodeService.createAndSend(Email);

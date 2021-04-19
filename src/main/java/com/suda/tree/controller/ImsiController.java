@@ -44,12 +44,14 @@ public class ImsiController {
     @Autowired
     private WebSocketService webSocketService;
 
+    @ApiOperation("获取监测节点最新数据")
     @GetMapping("/newest")
     public HttpResult getNodeInfoByImsi(@RequestParam("imsi") String imsi) {
         Optional info = imsiInfoRepository.findByImsi(imsi);
         return HttpResult.success(info.isEmpty() ? new HashMap<>() : info.get());
     }
 
+    @ApiOperation("获取监测节点历史数据，分页查询")
     @GetMapping("/history")
     public HttpResult getNodeHistoryInfoByImsi(
             @RequestParam("imsi") String imsi,

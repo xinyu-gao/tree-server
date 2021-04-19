@@ -7,6 +7,7 @@ import com.suda.tree.dto.City;
 import com.suda.tree.dto.result.HttpResult;
 import com.suda.tree.entity.mysql.CityCoordinate;
 import com.suda.tree.service.*;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,6 +59,7 @@ public class TestController {
         WebSocketService.sendInfoForAll("111");
     }
 
+    @ApiOperation("存数据用，调用baidu map api 的数据，不用调用了")
     @PostMapping("/city")
     public HttpResult save(@RequestBody City o){
         List<CityCoordinate> lists = new ArrayList<>();

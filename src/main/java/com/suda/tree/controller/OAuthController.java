@@ -2,6 +2,7 @@ package com.suda.tree.controller;
 
 import com.suda.tree.service.UserService;
 import com.suda.tree.service.WebSocketService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.model.AuthCallback;
@@ -40,12 +41,14 @@ public class OAuthController {
     private String callbackUrl;
 
 
+    @ApiOperation("阿里云登录")
     @RequestMapping("/render/{wsId}")
     public void renderAuth(HttpServletResponse response, @PathVariable(name = "wsId") String wsId) throws IOException {
         AuthRequest authRequest = getAuthRequest(wsId);
         response.sendRedirect(authRequest.authorize(AuthStateUtils.createState()));
     }
 
+    @ApiOperation("阿里云登录回调路径")
     @RequestMapping("/callback/{wsId}")
     public String login(AuthCallback callback, @PathVariable(name = "wsId") String wsId) throws IOException, EncodeException {
         AuthRequest authRequest = getAuthRequest(wsId);

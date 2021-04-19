@@ -30,6 +30,8 @@ public interface MinioService {
 
     String getFileURL(String id, MultipartFile file);
 
+    String getFileNameFromURL(String id, String url);
+
     /**
      * 获取对象名
      */
