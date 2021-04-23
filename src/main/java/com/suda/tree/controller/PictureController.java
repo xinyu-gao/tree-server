@@ -1,6 +1,7 @@
 package com.suda.tree.controller;
 
 import com.suda.tree.dao.TreePictureRepository;
+import com.suda.tree.dto.param.DeletePicParam;
 import com.suda.tree.dto.result.HttpResult;
 import com.suda.tree.entity.mysql.TreePicture;
 import com.suda.tree.service.TreePicService;
@@ -46,20 +47,16 @@ public class PictureController {
     }
 
     @ApiOperation("树木图片删除,通过图片名删除")
-    @DeleteMapping()
-    public HttpResult deleteByFileName(@RequestParam("tree_id") String treeId,
-                             @RequestParam("file_name") String fileName,
-                             @RequestParam("username") String username) throws Exception {
-        treePicService.deleteByFileName(treeId, fileName, username);
+    @DeleteMapping("/name")
+    public HttpResult deleteByFileName(@RequestBody DeletePicParam param) throws Exception {
+        treePicService.deleteByFileName(param.getTreeId(), param.getFileName(), param.getUsername());
         return HttpResult.success();
     }
 
     @ApiOperation("树木图片删除，通过文件URL删除")
-    @DeleteMapping()
-    public HttpResult deleteByFileURL(@RequestParam("tree_id") String treeId,
-                             @RequestParam("file_url") String fileURL,
-                             @RequestParam("username") String username) throws Exception {
-        treePicService.deleteByFileURL(treeId, fileURL, username);
+    @DeleteMapping("/url")
+    public HttpResult deleteByFileURL(@RequestBody DeletePicParam param) throws Exception {
+        treePicService.deleteByFileURL(param.getTreeId(), param.getFileURL(), param.getUsername());
         return HttpResult.success();
     }
 }

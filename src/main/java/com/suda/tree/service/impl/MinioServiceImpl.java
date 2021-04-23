@@ -88,7 +88,7 @@ public class MinioServiceImpl implements MinioService {
     }
 
     public String getFileNameFromURL(String id, String url) {
-        return StrUtil.removePrefix(url, getURLPrefix() + id);
+        return StrUtil.removePrefix(url, getURLPrefix() + id + "/");
     }
 
 
