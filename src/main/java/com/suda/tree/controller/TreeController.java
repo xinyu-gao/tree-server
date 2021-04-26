@@ -84,4 +84,15 @@ public class TreeController {
         return HttpResult.success(treeInfoService.getTreeListBySearch(condition, value, page, size));
     }
 
+    @ApiOperation("为某棵树木（tree_id）设置对应的硬件节点标识（imsi）")
+    @PostMapping("/imsi")
+    public HttpResult setImsiForTree(@RequestParam("tree_id") String treeId,@RequestParam("imsi") String imsi) {
+        return HttpResult.success(treeInfoService.setImsiForTree(treeId, imsi));
+    }
+
+    @ApiOperation("查询某棵树木的imsi")
+    @GetMapping("/imsi")
+    public HttpResult findImsiForTree(@RequestParam("tree_id") String treeId){
+        return HttpResult.success(treeInfoService.findImsiForTree(treeId));
+    }
 }

@@ -15,15 +15,29 @@ public class TestUtil {
     public static void main(String[] args) {
         log.info(String.valueOf(DateUtil.parse("2021-02-14T04:16:17.000+00:00")));
         int i = 7;
-         log.info(String.valueOf(i));
-        log.info(String.valueOf((i--)-3));
-
+        log.info(String.valueOf(i));
+        log.info(String.valueOf((i--) - 3));
+        People p = new People();
 
     }
-    public static class People{
+
+    public static class People {
         private int age;
+
+        People(int age) {
+            this.age = age;
+        }
+
+        public People() {
+
+        }
     }
-    public static class Student extends People{
+
+    public static class Student extends People {
         private int age;
+
+        Student(int age) {
+            super(age);
+        }
     }
 }

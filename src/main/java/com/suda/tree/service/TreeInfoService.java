@@ -4,6 +4,7 @@ import com.suda.tree.dto.result.PageResult;
 import com.suda.tree.entity.mysql.CityTreeCount;
 import com.suda.tree.entity.mysql.TreeGradeStatistic;
 import com.suda.tree.entity.mysql.TreeInfo;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -40,4 +41,8 @@ public interface TreeInfoService {
     List<TreeInfo> getInfosFuzzyQuery(String data);
 
     PageResult<TreeInfo> getTreeListBySearch(String searchField, String value, int page, int size) throws Exception;
+
+    Boolean setImsiForTree(String treeId, String imsi);
+
+    String findImsiForTree(String treeId);
 }

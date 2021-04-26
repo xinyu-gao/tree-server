@@ -5,3 +5,4 @@
 2021-04-23 16:13:53 [http-nio-2399-exec-1] ERROR com.suda.tree.exception.GlobalException - [/picture/tree/name]：该图片不存在
 2021-04-23 16:14:27 [http-nio-2399-exec-5] ERROR com.suda.tree.exception.GlobalException - [/picture/tree/name]：该图片不存在
 2021-04-23 16:14:31 [http-nio-2399-exec-7] ERROR com.suda.tree.exception.GlobalException - [/picture/tree/name]：该图片不存在
+2021-04-23 16:17:47 [http-nio-2399-exec-1] ERROR com.suda.tree.exception.GlobalException - [/picture/tree/name]：该图片不存在

@@ -158,6 +158,14 @@ public class TreeInfoServiceImpl implements TreeInfoService {
         return PageUtil.setResult(result);
     }
 
+    public Boolean setImsiForTree(String treeId, String imsi){
+        return treeInfoRepository.setImsiForTree(treeId, imsi) == 1;
+    }
+
+    public String findImsiForTree(String treeId){
+        return treeInfoRepository.findImsiForTree(treeId);
+    }
+
 
     /**
      * 判断是否是直辖市

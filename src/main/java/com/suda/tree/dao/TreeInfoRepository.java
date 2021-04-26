@@ -4,10 +4,13 @@ import com.suda.tree.entity.mysql.TreeInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,4 +63,12 @@ public interface TreeInfoRepository extends JpaRepository<TreeInfo, String> {
 
     Page<TreeInfo> findTreeInfoByLocationProvinceContainingOrLocationCityContainingOrLocationDistrictContainingOrLocationDetailContaining
             (String locationProvince, String locationCity, String locationDistrict, String locationDetail, Pageable pageable);
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "update tree_info set imsi = :imsi where tree_id = :tree_id")
+    int setImsiForTree(@Param("tree_id") String treeId, @Param("imsi") String imsi);
+
+    @Query(nativeQuery = true, value = "select imsi from tree_info where tree_id = :tree_id")
+    String findImsiForTree(@Param("tree_id") String treeId);
 }
