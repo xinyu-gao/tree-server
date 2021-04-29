@@ -1,0 +1,9 @@
+2021-04-27 18:45:04 [http-nio-2399-exec-1] ERROR com.suda.tree.exception.GlobalException - [/tree/list]：java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+2021-04-27 18:45:18 [http-nio-2399-exec-3] ERROR com.suda.tree.exception.GlobalException - [/tree]：No class com.suda.tree.entity.mysql.TreeInfo entity with id undefined exists!
+2021-04-27 18:45:24 [http-nio-2399-exec-5] ERROR com.suda.tree.exception.GlobalException - [/tree]：No class com.suda.tree.entity.mysql.TreeInfo entity with id undefined exists!
+2021-04-27 18:47:00 [http-nio-2399-exec-1] ERROR com.suda.tree.exception.GlobalException - [/tree]：No class com.suda.tree.entity.mysql.TreeInfo entity with id undefined exists!
+2021-04-27 18:50:10 [http-nio-2399-exec-7] ERROR com.suda.tree.exception.GlobalException - [/tree]：No class com.suda.tree.entity.mysql.TreeInfo entity with id undefined exists!
+2021-04-27 21:57:25 [http-nio-2399-exec-3] ERROR com.suda.tree.exception.GlobalException - [/log/login]：密码不正确
+2021-04-27 21:57:30 [http-nio-2399-exec-9] ERROR com.suda.tree.exception.GlobalException - [/log/login]：密码不正确
+2021-04-27 21:57:36 [http-nio-2399-exec-10] ERROR com.suda.tree.exception.GlobalException - [/log/login]：密码不正确
+2021-04-27 22:22:56 [http-nio-2399-exec-7] ERROR com.suda.tree.exception.GlobalException - [/tree/list]：java.io.IOException: 你的主机中的软件中止了一个已建立的连接。

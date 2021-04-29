@@ -37,12 +37,6 @@ public class ImsiInfo {
     private float humidity;
 
     /**
-     * 二氧化碳浓度
-     */
-    @Column(name = "co2")
-    private float carbonDioxide;
-
-    /**
      * 倾斜度
      */
     @Column(name = "slant")
@@ -61,11 +55,10 @@ public class ImsiInfo {
     @Column(name = "send_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date sendTime;
 
-    public ImsiInfo(String imsi, float temp, float humidity, float carbonDioxide, float slant, boolean isOnline, Date sendTime) {
+    public ImsiInfo(String imsi, float temp, float humidity, float slant, boolean isOnline, Date sendTime) {
         this.imsi = imsi;
         this.temp = temp;
         this.humidity = humidity;
-        this.carbonDioxide = carbonDioxide;
         this.slant = slant;
         this.isOnline = isOnline;
         this.sendTime = sendTime;

@@ -95,4 +95,11 @@ public class TreeController {
     public HttpResult findImsiForTree(@RequestParam("tree_id") String treeId){
         return HttpResult.success(treeInfoService.findImsiForTree(treeId));
     }
+
+    @ApiOperation("删除某棵树")
+    @DeleteMapping("")
+    public HttpResult deleteTree(@RequestParam("tree_id") String treeId){
+        treeInfoService.deleteByTreeId(treeId);
+        return HttpResult.success();
+    }
 }

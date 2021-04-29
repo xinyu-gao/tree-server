@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.Optional;
 
 @Repository
-public interface WarnThresholdRepository extends JpaRepository<WarnThreshold, Long> {
+public interface WarnThresholdRepository extends JpaRepository<WarnThreshold, String> {
 
     @Override
-    Optional<WarnThreshold> findById(Long id);
+    Optional<WarnThreshold> findById(String treeId);
 
     @Override
     <S extends WarnThreshold> S save(S s);

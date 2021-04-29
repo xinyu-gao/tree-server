@@ -166,6 +166,11 @@ public class TreeInfoServiceImpl implements TreeInfoService {
         return treeInfoRepository.findImsiForTree(treeId);
     }
 
+    public void deleteByTreeId(String id){
+        log.info(id);
+        treeInfoRepository.deleteById(id);
+    }
+
 
     /**
      * 判断是否是直辖市

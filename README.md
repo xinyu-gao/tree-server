@@ -240,7 +240,7 @@ swagger ui 的加强版。自动生成接口文档，根据注解生成接口说
 docker container rm -f tree-server
 ```
 
-构建新容器：
+构建新容器：（注意后面有个“.”）
 ```
 docker build -t tree/server:0.0.1 .
 ```

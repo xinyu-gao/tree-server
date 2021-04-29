@@ -41,12 +41,6 @@ public class ImsiInfoHistory {
     private float humidity;
 
     /**
-     * 二氧化碳浓度
-     */
-    @Column(name = "co2")
-    private float CO2;
-
-    /**
      * 倾斜度
      */
     @Column(name = "slant")

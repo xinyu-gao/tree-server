@@ -4,7 +4,7 @@ import com.suda.tree.entity.mysql.WarnThreshold;
 
 public interface WarnThresholdService {
 
-    WarnThreshold getWarnThreshold();
+    WarnThreshold getWarnThreshold(String treeId);
 
     WarnThreshold setWarnThreshold(WarnThreshold w);
 }

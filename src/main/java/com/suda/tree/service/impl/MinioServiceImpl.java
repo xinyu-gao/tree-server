@@ -134,20 +134,4 @@ public class MinioServiceImpl implements MinioService {
         throw new IllegalArgumentException("非法文件名称：" + fileName);
     }
 
-    /**
-     * 获取年月日[2021, 01, 01]
-     */
-    private static String[] getDateFolder() {
-        String[] retVal = new String[3];
-        LocalDate localDate = LocalDate.now();
-        int month = localDate.getMonthValue();
-        int day = localDate.getDayOfMonth();
-
-        retVal[0] = localDate.getYear() + "";
-        retVal[1] = month < 10 ? "0" + month : month + "";
-        retVal[2] = day < 10 ? "0" + day : day + "";
-
-        return retVal;
-    }
-
 }

@@ -12,14 +12,13 @@ import com.suda.tree.entity.mysql.ImsiInfo;
 import com.suda.tree.entity.mysql.ImsiInfoHistory;
 import com.suda.tree.service.ImsiDetectInfoService;
 import com.suda.tree.service.ImsiInfoService;
-import com.suda.tree.service.WebSocketService;
+import com.suda.tree.service.WebSocketToIMSIService;
 import com.suda.tree.util.TransferUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.EncodeException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Optional;
@@ -41,8 +40,6 @@ public class ImsiController {
     @Autowired
     private ImsiDetectInfoService imsiDetectInfoService;
 
-    @Autowired
-    private WebSocketService webSocketService;
 
     @ApiOperation("获取监测节点最新数据")
     @GetMapping("/newest")
@@ -64,23 +61,23 @@ public class ImsiController {
 
     @ApiOperation("接收树莓派节点发送来的监测数据")
     @PostMapping()
-    public HttpResult saveNodeInfo(@RequestBody NodeParam node) throws IOException, EncodeException {
+    public HttpResult saveNodeInfo(@RequestBody NodeParam node) throws IOException{
         ImsiInfo imsiInfo = TransferUtil.NodeParamToImsiInfo(node);
         ImsiInfoHistory imsiInfoHistory = TransferUtil.NodeParamToImsiInfoHistory(node);
         imsiInfoRepository.save(imsiInfo);
         imsiInfoHistoryRepository.save(imsiInfoHistory);
-        WebSocketService.sendInfoForAll("数据更新");
+        WebSocketToIMSIService.sendInfoForAll("数据更新");
         return HttpResult.success(node.toString());
     }
 
     @ApiOperation("接收树莓派节点发送来的缺陷成像数据")
     @PostMapping("/defect")
-    public HttpResult saveNodeDetectInfo(@RequestBody ImsiDetectInfo node) throws IOException, EncodeException {
+    public HttpResult saveNodeDetectInfo(@RequestBody ImsiDetectInfo node) throws IOException{
         log.info(JSON.toJSONString(node));
         imsiDetectInfoService.saveImsiDetectInfo(node);
         imsiDetectInfoService.saveImsiDetectHInfoHistory(
                 new ImsiDetectInfoHistory(node.getImsi(), node.getData()));
-        WebSocketService.sendInfoForAll("数据更新");
+        WebSocketToIMSIService.sendInfoForAll("数据更新");
         return HttpResult.success(node);
     }
 

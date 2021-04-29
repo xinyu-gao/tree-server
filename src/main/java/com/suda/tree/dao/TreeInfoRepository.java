@@ -71,4 +71,7 @@ public interface TreeInfoRepository extends JpaRepository<TreeInfo, String> {
 
     @Query(nativeQuery = true, value = "select imsi from tree_info where tree_id = :tree_id")
     String findImsiForTree(@Param("tree_id") String treeId);
+
+    @Override
+    void deleteById(String id);
 }

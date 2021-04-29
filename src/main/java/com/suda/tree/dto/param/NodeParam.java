@@ -28,10 +28,4 @@ public class NodeParam {
      */
     private float slant;
 
-    /**
-     * 二氧化碳浓度
-     */
-    private float carbonDioxide;
-
-
 }

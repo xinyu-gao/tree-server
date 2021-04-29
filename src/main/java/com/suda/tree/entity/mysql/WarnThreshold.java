@@ -16,8 +16,7 @@ import javax.persistence.Table;
 public class WarnThreshold {
 
     @Id
-    private Long id;
-
+    private String treeId;
     /**
      * 温度上限
      */
@@ -48,9 +47,4 @@ public class WarnThreshold {
     @Column(name = "slant_upper")
     private Float slantUpper;
 
-    /**
-     * 倾斜度下限
-     */
-    @Column(name = "slant_lower")
-    private Float slantLower;
 }

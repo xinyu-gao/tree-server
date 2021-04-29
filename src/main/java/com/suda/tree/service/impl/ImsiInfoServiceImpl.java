@@ -27,16 +27,14 @@ public class ImsiInfoServiceImpl implements ImsiInfoService {
         List<Float> lineTempList = new LinkedList<>();
         List<Float> lineHumidityList = new LinkedList<>();
         List<Float> lineSlantList = new LinkedList<>();
-        List<Float> lineCarbonDioxideListList = new LinkedList<>();
         for (ImsiInfoHistory node : nodeList.getContent()) {
             lineTimeList.add(0, node.getSendTime().toString().substring(11, 16));
             lineTempList.add(0, node.getTemp());
             lineHumidityList.add(0, node.getHumidity());
             lineSlantList.add(0, node.getSlant());
-            lineCarbonDioxideListList.add(0, node.getCO2());
         }
         ;
-        return new LineDataResult(imsi, lineTimeList, lineTempList, lineHumidityList, lineSlantList, lineCarbonDioxideListList);
+        return new LineDataResult(imsi, lineTimeList, lineTempList, lineHumidityList, lineSlantList);
     }
     public PageResult<ImsiInfoHistory> getNodeHistoryInfoByImsi(String imsi, int page, int size){
         Page<ImsiInfoHistory> nodeList = imsiInfoHistoryRepository.findByImsi(imsi, PageRequest.of(page, size));

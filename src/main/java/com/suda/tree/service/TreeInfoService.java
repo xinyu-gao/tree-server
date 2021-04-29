@@ -45,4 +45,6 @@ public interface TreeInfoService {
     Boolean setImsiForTree(String treeId, String imsi);
 
     String findImsiForTree(String treeId);
+
+    void deleteByTreeId(String id);
 }

@@ -1,0 +1,23 @@
+2021-04-29 22:42:42 [http-nio-2399-exec-8] ERROR com.suda.tree.exception.GlobalException - [/imsi]：Request method 'GET' not supported
+2021-04-29 22:46:07 [http-nio-2399-exec-9] ERROR com.suda.tree.exception.GlobalException - [/imsi]：Request method 'GET' not supported
+2021-04-29 22:47:03 [http-nio-2399-exec-7] ERROR com.suda.tree.exception.GlobalException - [/imsi]：Request method 'GET' not supported
+2021-04-29 22:47:45 [http-nio-2399-exec-2] ERROR com.suda.tree.exception.GlobalException - [/imsi]：Request method 'GET' not supported
+2021-04-29 22:48:14 [http-nio-2399-exec-5] ERROR com.suda.tree.exception.GlobalException - [/imsi]：Request method 'GET' not supported
+2021-04-29 22:48:18 [http-nio-2399-exec-3] ERROR com.suda.tree.exception.GlobalException - [/imsi]：Request method 'GET' not supported
+2021-04-29 22:50:21 [http-nio-2399-exec-9] ERROR com.suda.tree.exception.GlobalException - [/imsi]：Request method 'GET' not supported
+2021-04-29 22:50:54 [http-nio-2399-exec-7] ERROR com.suda.tree.exception.GlobalException - [/imsi]：Request method 'GET' not supported
+2021-04-29 23:11:29 [http-nio-2399-exec-5] ERROR com.suda.tree.exception.GlobalException - [/imsi/defect]：java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+2021-04-29 23:21:03 [http-nio-2399-exec-9] ERROR com.suda.tree.exception.GlobalException - [/imsi]：Required request body is missing: public com.suda.tree.dto.result.HttpResult com.suda.tree.controller.ImsiController.saveNodeInfo(com.suda.tree.dto.param.NodeParam) throws java.io.IOException
+2021-04-29 23:26:11 [http-nio-2399-exec-6] ERROR com.suda.tree.exception.GlobalException - [/imsi]：Content type 'text/plain;charset=UTF-8' not supported
+2021-04-29 23:26:53 [http-nio-2399-exec-7] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Unknown column 'imsiinfo0_.co2' in 'field list'
+2021-04-29 23:26:53 [http-nio-2399-exec-7] ERROR com.suda.tree.exception.GlobalException - [/imsi]：could not extract ResultSet; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet
+2021-04-29 23:31:41 [http-nio-2399-exec-2] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Unknown column 'imsiinfohi0_.co2' in 'field list'
+2021-04-29 23:31:41 [http-nio-2399-exec-2] ERROR com.suda.tree.exception.GlobalException - [/imsi/history]：could not extract ResultSet; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet
+2021-04-29 23:31:41 [http-nio-2399-exec-9] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Unknown column 'imsiinfohi0_.co2' in 'field list'
+2021-04-29 23:31:41 [http-nio-2399-exec-9] ERROR com.suda.tree.exception.GlobalException - [/imsi/line_data]：could not extract ResultSet; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet
+2021-04-29 23:32:26 [http-nio-2399-exec-2] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Unknown column 'imsiinfohi0_.co2' in 'field list'
+2021-04-29 23:32:26 [http-nio-2399-exec-2] ERROR com.suda.tree.exception.GlobalException - [/imsi/history]：could not extract ResultSet; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet
+2021-04-29 23:32:26 [http-nio-2399-exec-8] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Unknown column 'imsiinfohi0_.co2' in 'field list'
+2021-04-29 23:32:26 [http-nio-2399-exec-8] ERROR com.suda.tree.exception.GlobalException - [/imsi/line_data]：could not extract ResultSet; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet
+2021-04-29 23:36:16 [http-nio-2399-exec-6] ERROR com.suda.tree.exception.GlobalException - [/imsi/line_data]：Null value was assigned to a property [class com.suda.tree.entity.mysql.ImsiInfoHistory.CO2] of primitive type setter of com.suda.tree.entity.mysql.ImsiInfoHistory.CO2; nested exception is org.hibernate.PropertyAccessException: Null value was assigned to a property [class com.suda.tree.entity.mysql.ImsiInfoHistory.CO2] of primitive type setter of com.suda.tree.entity.mysql.ImsiInfoHistory.CO2
+2021-04-29 23:36:16 [http-nio-2399-exec-8] ERROR com.suda.tree.exception.GlobalException - [/imsi/history]：Null value was assigned to a property [class com.suda.tree.entity.mysql.ImsiInfoHistory.CO2] of primitive type setter of com.suda.tree.entity.mysql.ImsiInfoHistory.CO2; nested exception is org.hibernate.PropertyAccessException: Null value was assigned to a property [class com.suda.tree.entity.mysql.ImsiInfoHistory.CO2] of primitive type setter of com.suda.tree.entity.mysql.ImsiInfoHistory.CO2
