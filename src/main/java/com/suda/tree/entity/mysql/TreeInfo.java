@@ -149,38 +149,38 @@ public class TreeInfo implements Serializable {
      * 树高
      */
     @Column(name = "height")
-    private int height;
+    private float height;
 
     /**
      * 胸围
      */
     @Column(name = "breast_diameter")
-    private int breastDiameter;
+    private float breastDiameter;
 
     /**
      * 冠幅-平均
      */
     @Column(name = "crown_width_average")
-    private int crownWidthAverage;
+    private float crownWidthAverage;
 
     /**
      * 冠幅-东西
      */
-    @Column(name = "crown_width_average_ew")
-    private int crownWidthEW;
+    @Column(name = "crown_width_ew")
+    private float crownWidthEW;
 
     /**
      * 冠幅-南北
      */
     @Column(name = "crown_width_ns")
-    private int crownWidthNS;
+    private float crownWidthNS;
 
 
     /**
      * 海拔
      */
-    @Column(name = "altitud")
-    private int altitude;
+    @Column(name = "altitude")
+    private float altitude;
 
     /**
      * 坡向
@@ -250,7 +250,7 @@ public class TreeInfo implements Serializable {
     private String protectionStatus;
 
     /**
-     * 保护现状：复壮沟、渗井、透气管、幼树靠接、土壤改良、叶面施肥、其他
+     * 现状：复壮沟、渗井、透气管、幼树靠接、土壤改良、叶面施肥、其他
      */
     @Column(name = "conserve_status")
     private String conserveStatus;
@@ -265,13 +265,13 @@ public class TreeInfo implements Serializable {
      * 调查人ID
      */
     @Column(name = "declarer_id")
-    private Long declarerId;
+    private String declarerId;
 
     /**
      * 审核人ID
      */
     @Column(name = "reviewer_id")
-    private Long reviewerId;
+    private String reviewerId;
 
     @Column(name = "update_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateTime;

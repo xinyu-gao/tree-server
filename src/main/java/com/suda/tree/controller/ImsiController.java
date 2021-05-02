@@ -67,13 +67,12 @@ public class ImsiController {
         imsiInfoRepository.save(imsiInfo);
         imsiInfoHistoryRepository.save(imsiInfoHistory);
         WebSocketToIMSIService.sendInfoForAll("数据更新");
-        return HttpResult.success(node.toString());
+        return HttpResult.success(node);
     }
 
     @ApiOperation("接收树莓派节点发送来的缺陷成像数据")
     @PostMapping("/defect")
     public HttpResult saveNodeDetectInfo(@RequestBody ImsiDetectInfo node) throws IOException{
-        log.info(JSON.toJSONString(node));
         imsiDetectInfoService.saveImsiDetectInfo(node);
         imsiDetectInfoService.saveImsiDetectHInfoHistory(
                 new ImsiDetectInfoHistory(node.getImsi(), node.getData()));

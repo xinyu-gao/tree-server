@@ -65,7 +65,14 @@ sudo systemctl restart docker
 阿里云镜像加速地址获取： https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors
 
 #### MySQL
-
+```bash
+docker run -p 3306:3306 --name mysql \
+-v /mydata/mysql/log:/var/log/mysql \
+-v /mydata/mysql/data:/var/lib/mysql \
+-v /mydata/mysql/conf:/etc/mysql \
+-e MYSQL_ROOT_PASSWORD=tree123456  \
+-d mysql:8.0
+```
 安装（Docker 方式）：
 
 可视化客户端：**Navicat Premium / Navicat for mysql**（付费）
