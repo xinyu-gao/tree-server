@@ -62,6 +62,7 @@ public class ImsiController {
     @ApiOperation("接收树莓派节点发送来的监测数据")
     @PostMapping()
     public HttpResult saveNodeInfo(@RequestBody NodeParam node) throws IOException{
+        log.info(node.toString());
         ImsiInfo imsiInfo = TransferUtil.NodeParamToImsiInfo(node);
         ImsiInfoHistory imsiInfoHistory = TransferUtil.NodeParamToImsiInfoHistory(node);
         imsiInfoRepository.save(imsiInfo);

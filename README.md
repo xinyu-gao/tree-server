@@ -64,18 +64,35 @@ sudo systemctl restart docker
 
 阿里云镜像加速地址获取： https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors
 
+---
+
 #### MySQL
+
+**安装（Docker 方式）：**
+
 ```bash
-docker run -p 3306:3306 --name mysql \
--v /mydata/mysql/log:/var/log/mysql \
+docker run -p 3307:3306 --name mysql2 \
+-v /mydata/mysql/mysql-files:/var/lib/mysql-files \
 -v /mydata/mysql/data:/var/lib/mysql \
 -v /mydata/mysql/conf:/etc/mysql \
 -e MYSQL_ROOT_PASSWORD=tree123456  \
+--privileged=true \
 -d mysql:8.0
 ```
-安装（Docker 方式）：
 
-可视化客户端：**Navicat Premium / Navicat for mysql**（付费）
+**Windows10：**
+
+https://dev.mysql.com/downloads/windows/installer/8.0.html
+
+下载 msi 安装包，选 Custom 方式安装，必选 Mysql Server 和 Connect J
+
+在密码安全界面，不要选择 mysql8，选择 mysql5
+
+服务启动失败的话，在“服务”中把 mysql 服务改为本地服务，再执行就可以了。
+
+**可视化客户端：**
+
+Navicat Premium / Navicat for mysql（付费）
 
 前者可以连接除 MySQL 外更多的数据库，如 MongoDB、Oracle、SQL Server 等。
 
@@ -86,6 +103,8 @@ url: jdbc:mysql://IP地址:3306/数据库名?serverTimezone=GMT%2B8
 username: ****
 password: ****
 ```
+
+---
 
 #### Redis
 
@@ -122,6 +141,19 @@ redis:
 ```
 
 #### Minio
+
+安装（Docker 方式）：
+
+```bash
+docker run -p 9090:9000 --name minio \
+  -e "MINIO_ACCESS_KEY=tree" \
+  -e "MINIO_SECRET_KEY=tree123456" \
+  -v /mydata/minio/data:/data \
+  -v /mydata/minio/config:/root/.minio \
+  -d minio/minio server /data
+```
+
+修改 Spring Boot 的 yml 配置文件：
 
 ```yml
 minio:
@@ -255,6 +287,7 @@ docker build -t tree/server:0.0.1 .
 运行新容器：
 ```
 docker run -p 2399:2399 --name tree-server \
+-v /mydata/tree/logs:/logs \
  -d tree/server:0.0.1
 ```
 

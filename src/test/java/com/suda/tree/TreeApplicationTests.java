@@ -16,8 +16,8 @@ class TreeApplicationTests {
     @Autowired
     private EmailService emailService;
 
-    @Test
-    public void testEmail() {
-        Assert.assertEquals("发送成功",emailService.sendWarnMessage("isgaoxy@gmail.com", "13", "温度超出异常，当前温度 57°C"));
-    }
+//    @Test
+//    public void testEmail() {
+//        Assert.assertEquals("发送成功",emailService.sendWarnMessage("isgaoxy@gmail.com", "13", "温度超出异常，当前温度 57°C"));
+//    }
 }
