@@ -119,8 +119,20 @@ docker run -p 6379:6379 --name redis \
 -v /mydata/redis/data:/data \
 -d --restart=always \
 redis:latest redis-server --appendonly yes \
---requirepass "tree123456"
+--requirepass "tree1234"
 ```
+
+Windows10：
+
+安装 exe 文件， 在安装目录下编辑 redis.windows-service.conf 文件， 添加密码
+
+```
+requirepass tree1234
+```
+
+并将 `bind 127.0.0.1` 这行注销掉。
+然后在服务中管理中重启 Redis 即可。
+
 
 可视化客户端：**Another Redis Desktop Manager**（开源免费）
 
@@ -152,6 +164,17 @@ docker run -p 9090:9000 --name minio \
   -v /mydata/minio/config:/root/.minio \
   -d minio/minio server /data
 ```
+
+Windows:
+
+打开minio文件夹，双击运行minio.bat文件，可以看见minioData下生成了一个新的文件夹`.minio.sys`，
+
+修改 \config\config.json 文件的账号密码，注意要八位以上。
+![img.png](md/minio.png)
+
+在任务管理器中关闭 minio.exe 进程，重启 minio.bat。
+
+然后登录 ip:9000 填写密码，进入网页，创建一个名为 tree 的 bucket。
 
 修改 Spring Boot 的 yml 配置文件：
 
@@ -297,11 +320,21 @@ docker run -p 2399:2399 --name tree-server \
 
 将 jar 文件上传到服务器，后台运行：
 
+Linux：
+
 ```bash
-nohup java -jar xx.jar &
+nohup java -jar tree-0.0.1-SNAPSHOT.jar.jar --spring.profiles.active=dev &
 ```
 
-停止服务（2399 改为自己的端口号, [pid] 为查询出来占用 2399 的进程号)
+Windows：
+
+```cmd
+start /b java -jar tree-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
+```
+
+若要停止服务（2399 改为自己的端口号, [pid] 为查询出来占用 2399 的进程号)
+
+Linux：
 
 ```bash
 sudo lsof -i:2399
@@ -313,6 +346,9 @@ sudo kill [pid]
 - 需要单独配置 Java 环境
   
 - 服务管理起来比较麻烦
+
+Windows：
+
 
 
 ### 第三方登录
